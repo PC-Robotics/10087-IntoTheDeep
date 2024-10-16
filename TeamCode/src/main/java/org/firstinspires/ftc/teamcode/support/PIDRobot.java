@@ -80,6 +80,7 @@ public class PIDRobot
     {
         myOpMode = opMode;
 
+        // Allows for coding a robot to be in robot-centric or field/driver-centric
         if(isFieldCentric)
         {
             fieldCentric = 1;
@@ -301,6 +302,7 @@ public class PIDRobot
 
         // If fieldCentric controls, adjust the angle based on the robot's orientation
         // Otherwise, fieldCentric = 0 and the angle is based only on the input
+        // theta is the angle the left stick is pressed / you want the robot to move
         theta = Math.atan2(y, x) + fieldCentric * rawHeading;
         power = Math.hypot(x, y);
 
