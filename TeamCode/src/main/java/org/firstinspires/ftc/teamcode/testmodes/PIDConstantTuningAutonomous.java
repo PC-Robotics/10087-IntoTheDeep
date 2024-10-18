@@ -10,6 +10,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.support.PIDRobot;
 
+/**
+ * The purpose of this Autonomous OP Mode is to test that the PID constants for drive, strafe, and turn
+ * are correctly setup. This code will move around a 1x1 square keeping a consistent orientation
+ * Then, the robot will move around the same 1x1 square but turn 90 degrees to the left each leg.
+ * Finally, the robot will make large and small rotations to test turning.
+ */
+
 @Autonomous(name="PID Value Calculation",group="Testing")
 public class PIDConstantTuningAutonomous extends LinearOpMode {
     private PIDRobot robot = new PIDRobot(this,false);
@@ -54,6 +61,8 @@ public class PIDConstantTuningAutonomous extends LinearOpMode {
             robot.turnTo(0,YAW_MAX_AUTO, 0.25);
             robot.turnTo(Math.PI / 2,YAW_MAX_AUTO, 0.25);
             robot.turnTo(0,YAW_MAX_AUTO, 0.25);
+            robot.turnTo(3* Math.PI /2,YAW_MAX_AUTO,0.25);
+            robot.turnTo(0,YAW_MAX_AUTO,0.25);
 
         }
     }
