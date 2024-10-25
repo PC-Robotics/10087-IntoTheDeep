@@ -23,4 +23,6 @@ public class ConfigConstants
     public static double YAW_KI = 0.1;
     public static double YAW_KD = 0.1;
 
+    public static String TESTED_SERVO = "testServo";
+
 }
