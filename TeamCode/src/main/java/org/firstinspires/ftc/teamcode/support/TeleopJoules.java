@@ -9,8 +9,7 @@ public class TeleopJoules extends LinearOpMode
 {
     JoulesRobot robot = new JoulesRobot(this);
 
-    public void runOpMode()
-    {
+    public void runOpMode() {
         robot.init();
         waitForStart();
 
@@ -18,16 +17,19 @@ public class TeleopJoules extends LinearOpMode
 
         // TODO: This codd only runs once, it needs to be in a While Loop. See BasicOpMode_Linear sample
 
-        manualLinSlideMove();
-        slidesPresetHeights();
-        bucketTilts();
-        wristMovement();
-        intakeSpins();
-        driving();
-        trolley();
-        claw();
+        while (opModeIsActive())
+        {
+            manualLinSlideMove();
+            slidesPresetHeights();
+            bucketTilts();
+            wristMovement();
+            intakeSpins();
+            driving();
+            trolley();
+            claw();
 
-        updateTelemetryData();
+            updateTelemetryData();
+        }
     }
 
     public void goDefaultPositions()
@@ -54,7 +56,7 @@ public class TeleopJoules extends LinearOpMode
         // TODO: this should be checked with the slides in middle position in case the stick is reversed
         if (Math.abs(gamepad2.right_stick_y) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
-            int targPos =  robot.linearSlide.getTargetPosition() + (int) (5 * gamepad2.left_stick_y);
+            int targPos =  robot.linearSlide.getTargetPosition() + (int) (5 * gamepad2.right_stick_y);
             if (targPos > ServoMotorPosConstants.LINEAR_SLIDE_SECOND_BUCKET_POSITION)
                 targPos = ServoMotorPosConstants.LINEAR_SLIDE_SECOND_BUCKET_POSITION;
             else if (targPos < ServoMotorPosConstants.LINEAR_SLIDE_STARTING_POSITION)
@@ -73,20 +75,20 @@ public class TeleopJoules extends LinearOpMode
             robot.linearSlide.setPower(ServoMotorPosConstants.LINEAR_SLIDE_POWER);
         }
 
-        if (gamepad2.dpad_down)
+        else if (gamepad2.dpad_down)
         {
-            robot.linearSlide.setTargetPosition(ServoMotorPosConstants.LINEAR_SLIDE_SECOND_BUCKET_POSITION);
-            robot.linearSlide.setPower(ServoMotorPosConstants.LINEAR_SLIDE_STARTING_POSITION);
+            robot.linearSlide.setTargetPosition(ServoMotorPosConstants.LINEAR_SLIDE_STARTING_POSITION);
+            robot.linearSlide.setPower(ServoMotorPosConstants.LINEAR_SLIDE_POWER);
         }
     }
 
     public void bucketTilts()
     {
-        if (gamepad2.y)
+        if (gamepad2.triangle)
         {
             robot.bucket.setPosition(ServoMotorPosConstants.BUCKET_RELEASE_POSITION);
         }
-        if (gamepad2.a)
+        else if (gamepad2.cross)
         {
             robot.bucket.setPosition(ServoMotorPosConstants.BUCKET_PICKUP_POSITION);
         }
@@ -98,7 +100,7 @@ public class TeleopJoules extends LinearOpMode
         {
             robot.wrist.setPosition(ServoMotorPosConstants.WRIST_INTAKE_POSITION);
         }
-        if (Math.abs(gamepad2.left_trigger) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
+        else if (Math.abs(gamepad2.left_trigger) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
             robot.wrist.setPosition(ServoMotorPosConstants.WRIST_RELEASE_POSITION);
         }
@@ -110,7 +112,7 @@ public class TeleopJoules extends LinearOpMode
         {
             robot.intake.setPower(ServoMotorPosConstants.MAX_INTAKE_POWER);
         }
-        if (gamepad2.left_bumper)
+        else if (gamepad2.left_bumper)
         {
             robot.intake.setPower(-ServoMotorPosConstants.MAX_INTAKE_POWER);
         }
@@ -118,20 +120,25 @@ public class TeleopJoules extends LinearOpMode
 
     public void driving()
     {
+        int vertBool = 0;
+        int horBool = 0;
+        int turnBool = 0;
+
         // TODO: These need to be combined to make ONE call to robot.moveRobot with all three values.
         if (Math.abs(gamepad1.left_stick_y) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
-            robot.moveRobot(0, gamepad1.left_stick_y, 0, ServoMotorPosConstants.MAX_DRIVING_POWER);
+            vertBool = 1;
         }
         if (Math.abs(gamepad1.left_stick_x) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
-            robot.moveRobot(gamepad1.left_stick_x, 0, 0, ServoMotorPosConstants.MAX_DRIVING_POWER);
+            horBool = 1;
         }
         if (Math.abs(gamepad1.right_stick_x) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
-            robot.moveRobot(0, 0, gamepad1.right_stick_x, ServoMotorPosConstants.MAX_DRIVING_POWER);
+            turnBool = 1;
         }
 
+        robot.moveRobot(gamepad1.left_stick_x * horBool, gamepad1.left_stick_y * vertBool, gamepad1.right_stick_x * turnBool, ServoMotorPosConstants.MAX_DRIVING_POWER);
         // TODO: Suggestion to add some button controls for more precise movement to make small adjustments
     }
 
