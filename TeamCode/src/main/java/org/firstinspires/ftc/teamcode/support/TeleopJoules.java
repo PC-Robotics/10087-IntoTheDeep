@@ -131,7 +131,7 @@ public class TeleopJoules extends LinearOpMode
         {
             x = 0;
         }
-        if (Math.abs(turn) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
+        if (Math.abs(turn) < ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
             turn = 0;
         }
@@ -165,7 +165,7 @@ public class TeleopJoules extends LinearOpMode
         {
             pad1RightTrigger = 0;
         }
-        if (Math.abs(gamepad1.left_trigger) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
+        if (Math.abs(gamepad1.left_trigger) < ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
             pad1LeftTrigger = 0;
         }
