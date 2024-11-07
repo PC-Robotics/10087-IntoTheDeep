@@ -147,24 +147,40 @@ public class TeleopJoules extends LinearOpMode
         }
     }
 
+    static <T extends Comparable<T>> T clamp(T value, T min, T max) {
+        if (value.compareTo(min) < 0) {
+            return min;
+        } else if (value.compareTo(max) > 0) {
+            return max;
+        } else {
+            return value;
+        }
+    }
     public void trolley()
     {
-        if (Math.abs(gamepad1.right_trigger) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
+        double pad1RightTrigger = gamepad1.right_trigger;
+        double pad1LeftTrigger = gamepad1.left_trigger;
+
+        if (Math.abs(gamepad1.right_trigger) < ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
-            double pos = robot.left.getPosition() - 0.02;
-            if (pos < ServoMotorPosConstants.ARM_OUT_POSITION)
-                pos = ServoMotorPosConstants.ARM_OUT_POSITION;
-            robot.left.setPosition(pos);
-            robot.right.setPosition(pos);
+            pad1RightTrigger = 0;
         }
         if (Math.abs(gamepad1.left_trigger) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
-            double pos = robot.left.getPosition() + 0.02;
-            if (pos > ServoMotorPosConstants.ARM_IN_POSITION)
-                pos = ServoMotorPosConstants.ARM_OUT_POSITION;
-            robot.left.setPosition(pos);
-            robot.right.setPosition(pos);
+            pad1LeftTrigger = 0;
         }
+
+        double newArmPosition = (robot.right.getPosition() + robot.left.getPosition()) / 2;
+
+        if (pad1RightTrigger != 0) {
+            newArmPosition -= (pad1RightTrigger / 300);
+        } else if (pad1LeftTrigger != 0) {
+            newArmPosition += (pad1LeftTrigger / 300);
+        }
+
+        newArmPosition = clamp(newArmPosition, ServoMotorPosConstants.ARM_OUT_POSITION, ServoMotorPosConstants.ARM_IN_POSITION);
+        robot.right.setPosition(newArmPosition);
+        robot.left.setPosition(newArmPosition);
     }
 
     public void claw()

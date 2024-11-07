@@ -34,7 +34,7 @@ public class JoulesRobot extends PIDRobot
         intake.setDirection(CRServo.Direction.FORWARD);
 
         right = myOpMode.hardwareMap.get(Servo.class, "right");
-        right.setDirection(Servo.Direction.REVERSE);
+        right.setDirection(Servo.Direction.FORWARD);
 
         left = myOpMode.hardwareMap.get(Servo.class, "left");
         left.setDirection(Servo.Direction.FORWARD);
