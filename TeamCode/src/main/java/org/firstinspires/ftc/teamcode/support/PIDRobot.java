@@ -123,8 +123,8 @@ public class PIDRobot
         // Initialize the IMU. Remember to check how this is orientated on any new robots
         // TODO: When copying this code into a new robot, make sure the orientation is set correctly
         RevHubOrientationOnRobot orientationOnRobot =
-                new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
-                        RevHubOrientationOnRobot.UsbFacingDirection.UP);
+                new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                        RevHubOrientationOnRobot.UsbFacingDirection.LEFT);
         imu.initialize(new IMU.Parameters(orientationOnRobot));
 
         // Zero out all odometry
