@@ -119,33 +119,32 @@ public class TeleopJoules extends LinearOpMode
 
     public void driving()
     {
-        int vertBool = 0;
-        int horBool = 0;
-        int turnBool = 0;
+        double y = -1 * gamepad1.left_stick_y;
+        double x = -1 * gamepad1.left_stick_x;
+        double turn = gamepad1.right_stick_x;
 
-        if (Math.abs(gamepad1.left_stick_y) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
+        if (Math.abs(y) < ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
-            vertBool = 1;
+            y=0;
         }
-        if (Math.abs(gamepad1.left_stick_x) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
+        if (Math.abs(x) < ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
-            horBool = 1;
+            x = 0;
         }
-        if (Math.abs(gamepad1.right_stick_x) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
+        if (Math.abs(turn) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
-            turnBool = 1;
+            turn = 0;
         }
 
 
         if (gamepad1.left_bumper)
         {
-            robot.moveRobot(gamepad1.left_stick_x * horBool, gamepad1.left_stick_y * vertBool, gamepad1.right_stick_x * turnBool, ServoMotorPosConstants.MAX_DRIVING_POWER / 2);
+            robot.moveRobot(x, y, turn, ServoMotorPosConstants.MAX_DRIVING_POWER / 2);
         }
         else
         {
-            robot.moveRobot(gamepad1.left_stick_x * horBool, gamepad1.left_stick_y * vertBool, gamepad1.right_stick_x * turnBool, ServoMotorPosConstants.MAX_DRIVING_POWER);
+            robot.moveRobot(x, y, turn, ServoMotorPosConstants.MAX_DRIVING_POWER);
         }
-        // TODO: Suggestion to add some button controls for more precise movement to make small adjustments
     }
 
     public void trolley()
