@@ -15,6 +15,17 @@ public class TeleopJoules extends LinearOpMode
         waitForStart();
 
         goDefaultPositions();
+
+        manualLinSlideMove();
+        slidesPresetHeights();
+        bucketTilts();
+        wristMovement();
+        intakeSpins();
+        driving();
+        trolley();
+        claw();
+
+        updateTelemetryData();
     }
 
     public void goDefaultPositions()
@@ -149,5 +160,18 @@ public class TeleopJoules extends LinearOpMode
         }
     }
 
+    private void updateTelemetryData() {
+        telemetry.addData("Subsystem Data ", "-----")
+                .addData("Slide Position: ", robot.linearSlide.getCurrentPosition())
+                .addData("Bucket Position: ", robot.bucket.getPosition())
+                .addData("Trolley Positions: \nLeft: ", robot.left.getPosition())
+                .addData("Right: ", robot.right.getPosition())
+                .addData("Claw Position: ", robot.claw.getPosition())
+                .addData("Wrist Position: ", robot.wrist.getPosition())
+                .addData("Happiness Score: ", "10/10");
 
+
+
+        telemetry.update();
+    }
 }
