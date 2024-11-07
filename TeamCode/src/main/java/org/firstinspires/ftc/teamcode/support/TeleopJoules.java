@@ -16,6 +16,8 @@ public class TeleopJoules extends LinearOpMode
 
         goDefaultPositions();
 
+        // TODO: This codd only runs once, it needs to be in a While Loop. See BasicOpMode_Linear sample
+
         manualLinSlideMove();
         slidesPresetHeights();
         bucketTilts();
@@ -49,6 +51,7 @@ public class TeleopJoules extends LinearOpMode
 
     public void manualLinSlideMove()
     {
+        // TODO: this should be checked with the slides in middle position in case the stick is reversed
         if (Math.abs(gamepad2.right_stick_y) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
             int targPos =  robot.linearSlide.getTargetPosition() + (int) (5 * gamepad2.left_stick_y);
@@ -63,6 +66,7 @@ public class TeleopJoules extends LinearOpMode
 
     public void slidesPresetHeights()
     {
+        // TODO: This may cause a skip of the middle position if it reads one button press as several
         if (gamepad2.dpad_up)
         {
             robot.linearSlide.setTargetPosition(ServoMotorPosConstants.LINEAR_SLIDE_SECOND_BUCKET_POSITION);
@@ -114,6 +118,7 @@ public class TeleopJoules extends LinearOpMode
 
     public void driving()
     {
+        // TODO: These need to be combined to make ONE call to robot.moveRobot with all three values.
         if (Math.abs(gamepad1.left_stick_y) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
             robot.moveRobot(0, gamepad1.left_stick_y, 0, ServoMotorPosConstants.MAX_DRIVING_POWER);
@@ -126,6 +131,8 @@ public class TeleopJoules extends LinearOpMode
         {
             robot.moveRobot(0, 0, gamepad1.right_stick_x, ServoMotorPosConstants.MAX_DRIVING_POWER);
         }
+
+        // TODO: Suggestion to add some button controls for more precise movement to make small adjustments
     }
 
     public void trolley()
