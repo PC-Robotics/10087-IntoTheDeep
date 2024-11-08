@@ -97,10 +97,10 @@ public class PIDRobot
     {
         // Initialize the drive train motors
         // Currently running them with encoders to use the PID controls and odometry
-        frontRight = setupMotor("frontRight", DcMotor.Direction.REVERSE, false);
-        frontLeft = setupMotor("frontLeft",DcMotor.Direction.FORWARD,false);
-        backRight = setupMotor("backRight",DcMotor.Direction.REVERSE, false);
-        backLeft = setupMotor("backLeft",DcMotor.Direction.FORWARD, false);
+        frontRight = setupMotor("frontRight", DcMotor.Direction.FORWARD, true);
+        frontLeft = setupMotor("frontLeft",DcMotor.Direction.REVERSE,true);
+        backRight = setupMotor("backRight",DcMotor.Direction.FORWARD, true);
+        backLeft = setupMotor("backLeft",DcMotor.Direction.REVERSE, true);
 
         // Initialize the IMU
         imu = myOpMode.hardwareMap.get(IMU.class,"imu");

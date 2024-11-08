@@ -11,9 +11,10 @@ public class TeleopJoules extends LinearOpMode
 
     public void runOpMode() {
         robot.init();
+        updateTelemetryData();
         waitForStart();
 
-        goDefaultPositions();
+        //goDefaultPositions();
 
 
         while (opModeIsActive())
@@ -115,17 +116,21 @@ public class TeleopJoules extends LinearOpMode
         {
             robot.intake.setPower(-ServoMotorPosConstants.MAX_INTAKE_POWER);
         }
+        else
+        {
+            robot.intake.setPower(0);
+        }
     }
 
     public void driving()
     {
-        double y = -1 * gamepad1.left_stick_y;
-        double x = -1 * gamepad1.left_stick_x;
+        double y = gamepad1.left_stick_y;
+        double x = gamepad1.left_stick_x;
         double turn = gamepad1.right_stick_x;
 
         if (Math.abs(y) < ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
-            y=0;
+            y = 0;
         }
         if (Math.abs(x) < ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {

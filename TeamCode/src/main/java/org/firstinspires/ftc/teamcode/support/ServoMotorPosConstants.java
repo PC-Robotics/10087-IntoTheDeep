@@ -6,8 +6,8 @@ public class ServoMotorPosConstants
 
     public static final double MAX_DRIVING_POWER = 0.8;
 
-    public static final double ARM_IN_POSITION = 0.658;
-    public static final double ARM_OUT_POSITION = 0.188;
+    public static final double ARM_IN_POSITION = 1;
+    public static final double ARM_OUT_POSITION = 0.55; //0.53 exact value
 
     public static final int LINEAR_SLIDE_STARTING_POSITION = 0;
     public static final int LINEAR_SLIDE_FIRST_BUCKET_POSITION = 2700;
