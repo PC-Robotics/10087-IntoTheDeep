@@ -65,7 +65,7 @@ public class TeleopJoules extends LinearOpMode
         }
         else
         {
-            robot.linearSlide.setPower(0);
+            robot.linearSlide.setPower(0.05);
         }
     }
 
