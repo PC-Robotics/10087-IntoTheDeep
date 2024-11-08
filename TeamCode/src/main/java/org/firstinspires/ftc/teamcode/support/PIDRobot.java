@@ -319,14 +319,14 @@ public class PIDRobot
         bR = power * sin / max - turn;
 
         // If the power + |turn| is above max power, need to scale everything down
-
-        if ((power + Math.abs(turn)) > maxPower)
+        double largest = power + Math.abs(turn);
+        if (largest > maxPower)
         {
             // This set of commands sets the maximum value of any one motor power to 1
-            fL /= (power + turn);
-            fR /= (power + turn);
-            bL /= (power + turn);
-            bR /= (power + turn);
+            fL /= largest;
+            fR /= largest;
+            bL /= largest;
+            bR /= largest;
 
             // This set of commands then scales it based on the max power input
             // Typically in autonomous modes this value is less than 1 in case something goes wrong
