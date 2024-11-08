@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 public class TeleopJoules extends LinearOpMode
 {
     JoulesRobot robot = new JoulesRobot(this);
-
+    boolean firstTime = true;
     public void runOpMode() {
         robot.init();
         updateTelemetryData();
@@ -19,6 +19,12 @@ public class TeleopJoules extends LinearOpMode
 
         while (opModeIsActive())
         {
+            if (firstTime)
+            {
+                onFirstRun();
+                firstTime = false;
+            }
+
             manualLinSlideMove();
             slidesPresetHeights();
             bucketTilts();
@@ -30,6 +36,13 @@ public class TeleopJoules extends LinearOpMode
 
             updateTelemetryData();
         }
+    }
+
+    public void onFirstRun()
+    {
+        robot.wrist.setPosition(ServoMotorPosConstants.WRIST_DRIVING_POSITION);
+        robot.right.setPosition(ServoMotorPosConstants.ARM_IN_POSITION);
+        robot.left.setPosition(ServoMotorPosConstants.ARM_IN_POSITION);
     }
 
     public void goDefaultPositions()
@@ -65,7 +78,7 @@ public class TeleopJoules extends LinearOpMode
         }
         else
         {
-            robot.linearSlide.setPower(0.05);
+            robot.linearSlide.setPower(0.0);
         }
     }
 
