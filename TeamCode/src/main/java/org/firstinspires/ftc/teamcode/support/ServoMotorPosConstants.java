@@ -7,7 +7,7 @@ public class ServoMotorPosConstants
     public static final double MAX_DRIVING_POWER = 0.8;
 
     public static final double ARM_IN_POSITION = 1;
-    public static final double ARM_OUT_POSITION = 0.55; //0.53 exact value
+    public static final double ARM_OUT_POSITION = 0.55;
 
     public static final int LINEAR_SLIDE_STARTING_POSITION = 0;
     public static final int LINEAR_SLIDE_FIRST_BUCKET_POSITION = 2700;
@@ -16,9 +16,9 @@ public class ServoMotorPosConstants
     public static final double CLAW_OPEN_POSITION = .5;
     public static final double CLAW_CLOSED_POSITION = .68;
 
-    public static final double WRIST_INTAKE_POSITION = 0.8;
-    public static final double WRIST_RELEASE_POSITION = 0.21;
-    public static final double WRIST_DRIVING_POSITION = 0.38;
+    public static final double WRIST_INTAKE_POSITION = 0.73;
+    public static final double WRIST_RELEASE_POSITION = 0.00;
+    public static final double WRIST_DRIVING_POSITION = 0.26;
     public static final double BUCKET_PICKUP_POSITION = 0.514;
     public static final double BUCKET_RELEASE_POSITION = 0.48;
 
