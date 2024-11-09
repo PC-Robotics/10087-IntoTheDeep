@@ -43,6 +43,7 @@ public class TeleopJoules extends LinearOpMode
         robot.wrist.setPosition(ServoMotorPosConstants.WRIST_DRIVING_POSITION);
         robot.right.setPosition(ServoMotorPosConstants.ARM_IN_POSITION);
         robot.left.setPosition(ServoMotorPosConstants.ARM_IN_POSITION);
+        robot.bucket.setPosition(ServoMotorPosConstants.BUCKET_PICKUP_POSITION);
     }
 
     public void goDefaultPositions()
@@ -141,9 +142,9 @@ public class TeleopJoules extends LinearOpMode
 
     public void driving()
     {
-        double y = gamepad1.left_stick_y;
-        double x = gamepad1.left_stick_x;
-        double turn = gamepad1.right_stick_x;
+        double y = -gamepad1.left_stick_y;
+        double x = -gamepad1.left_stick_x;
+        double turn = -gamepad1.right_stick_x;
 
         if (Math.abs(y) < ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
@@ -195,11 +196,12 @@ public class TeleopJoules extends LinearOpMode
         double newArmPosition = (robot.right.getPosition() + robot.left.getPosition()) / 2;
 
         if (pad1RightTrigger != 0) {
-            newArmPosition -= (pad1RightTrigger / 300);
+            newArmPosition -= (pad1RightTrigger /
+                    300);
         } else if (pad1LeftTrigger != 0) {
             newArmPosition += (pad1LeftTrigger / 300);
         }
-
+        // Makes sure the arm can't go out of the min or max
         newArmPosition = clamp(newArmPosition, ServoMotorPosConstants.ARM_OUT_POSITION, ServoMotorPosConstants.ARM_IN_POSITION);
         robot.right.setPosition(newArmPosition);
         robot.left.setPosition(newArmPosition);
