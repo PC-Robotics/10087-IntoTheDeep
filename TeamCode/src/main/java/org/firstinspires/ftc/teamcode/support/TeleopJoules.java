@@ -71,7 +71,14 @@ public class TeleopJoules extends LinearOpMode
         {
             int targPos =  robot.linearSlide.getTargetPosition() + (int) (-5 * gamepad2.right_stick_y);
 
-            targPos = clamp(targPos, ServoMotorPosConstants.LINEAR_SLIDE_STARTING_POSITION, ServoMotorPosConstants.LINEAR_SLIDE_TOP_POSITION);
+            if (targPos < ServoMotorPosConstants.LINEAR_SLIDE_STARTING_POSITION)
+            {
+                targPos = ServoMotorPosConstants.LINEAR_SLIDE_STARTING_POSITION;
+            }
+            else if (targPos > ServoMotorPosConstants.LINEAR_SLIDE_TOP_POSITION)
+            {
+                targPos = ServoMotorPosConstants.LINEAR_SLIDE_TOP_POSITION;
+            }
 
             robot.linearSlide.setTargetPosition(targPos);
             robot.linearSlide.setPower(-gamepad2.right_stick_y * ServoMotorPosConstants.LINEAR_SLIDE_POWER);
