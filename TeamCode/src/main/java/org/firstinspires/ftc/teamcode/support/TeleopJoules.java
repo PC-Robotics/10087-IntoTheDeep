@@ -70,10 +70,9 @@ public class TeleopJoules extends LinearOpMode
         if (Math.abs(gamepad2.right_stick_y) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
             int targPos =  robot.linearSlide.getTargetPosition() + (int) (-5 * gamepad2.right_stick_y);
-            if (targPos > ServoMotorPosConstants.LINEAR_SLIDE_SECOND_BUCKET_POSITION)
-                targPos = ServoMotorPosConstants.LINEAR_SLIDE_SECOND_BUCKET_POSITION;
-            else if (targPos < ServoMotorPosConstants.LINEAR_SLIDE_STARTING_POSITION)
-                targPos = ServoMotorPosConstants.LINEAR_SLIDE_STARTING_POSITION;
+
+            targPos = clamp(targPos, ServoMotorPosConstants.LINEAR_SLIDE_STARTING_POSITION, ServoMotorPosConstants.LINEAR_SLIDE_TOP_POSITION)
+
             robot.linearSlide.setTargetPosition(targPos);
             robot.linearSlide.setPower(-gamepad2.right_stick_y * ServoMotorPosConstants.LINEAR_SLIDE_POWER);
         }
@@ -89,7 +88,7 @@ public class TeleopJoules extends LinearOpMode
         // I don't think we need a middle position
         if (gamepad2.dpad_up)
         {
-            robot.linearSlide.setTargetPosition(ServoMotorPosConstants.LINEAR_SLIDE_SECOND_BUCKET_POSITION);
+            robot.linearSlide.setTargetPosition(ServoMotorPosConstants.LINEAR_SLIDE_TOP_POSITION);
             robot.linearSlide.setPower(ServoMotorPosConstants.LINEAR_SLIDE_POWER);
         }
 
@@ -142,8 +141,8 @@ public class TeleopJoules extends LinearOpMode
 
     public void driving()
     {
-        double y = -gamepad1.left_stick_y;
-        double x = -gamepad1.left_stick_x;
+        double y = gamepad1.left_stick_y;
+        double x = gamepad1.left_stick_x;
         double turn = -gamepad1.right_stick_x;
 
         if (Math.abs(y) < ServoMotorPosConstants.DEADZONE_THRESHOLD)
