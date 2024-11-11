@@ -27,7 +27,7 @@ public class TeleopJoules extends LinearOpMode
             }
 
             manualLinSlideMove();
-            slidesPresetHeights();
+            //slidesPresetHeights();
             bucketTilts();
             wristMovement();
             intakeSpins();
