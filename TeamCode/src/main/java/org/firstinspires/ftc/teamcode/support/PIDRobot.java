@@ -350,6 +350,12 @@ public class PIDRobot
         moveRobot(0,0,0,1);
     }
 
+    public void setPowers(double FLpower, double FRpower, double BLpower, double BRpower) {
+        frontLeft.setPower(FLpower);
+        frontRight.setPower(FRpower);
+        backLeft.setPower(BLpower);
+        backRight.setPower(BRpower);
+    }
     /**
      * Set odometry counts and distances to zero.
      */

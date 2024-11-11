@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.support;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name="TeleopJoules", group="Robot")
 public class TeleopJoules extends LinearOpMode
@@ -41,9 +42,10 @@ public class TeleopJoules extends LinearOpMode
     public void onFirstRun()
     {
         robot.wrist.setPosition(ServoMotorPosConstants.WRIST_DRIVING_POSITION);
+        robot.bucket.setPosition(ServoMotorPosConstants.BUCKET_PICKUP_POSITION);
         robot.right.setPosition(ServoMotorPosConstants.ARM_IN_POSITION);
         robot.left.setPosition(ServoMotorPosConstants.ARM_IN_POSITION);
-        robot.bucket.setPosition(ServoMotorPosConstants.BUCKET_PICKUP_POSITION);
+        robot.claw.setPosition(ServoMotorPosConstants.CLAW_CLOSED_POSITION);
     }
 
     public void goDefaultPositions()
@@ -69,18 +71,19 @@ public class TeleopJoules extends LinearOpMode
     {
         if (Math.abs(gamepad2.right_stick_y) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
-            int targPos =  robot.linearSlide.getTargetPosition() + (int) (-5 * gamepad2.right_stick_y);
+            int targPos =  robot.linearSlide.getCurrentPosition() + (int) (-80 * gamepad2.right_stick_y);
 
             if (targPos < ServoMotorPosConstants.LINEAR_SLIDE_STARTING_POSITION)
             {
                 targPos = ServoMotorPosConstants.LINEAR_SLIDE_STARTING_POSITION;
             }
-            else if (targPos > ServoMotorPosConstants.LINEAR_SLIDE_TOP_POSITION)
+            else if (targPos > ServoMotorPosConstants.LINEAR_SLIDE_HIGHEST_POSITION)
             {
-                targPos = ServoMotorPosConstants.LINEAR_SLIDE_TOP_POSITION;
+                targPos = ServoMotorPosConstants.LINEAR_SLIDE_HIGHEST_POSITION;
             }
 
             robot.linearSlide.setTargetPosition(targPos);
+            robot.linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.linearSlide.setPower(-gamepad2.right_stick_y * ServoMotorPosConstants.LINEAR_SLIDE_POWER);
         }
         else
@@ -95,7 +98,7 @@ public class TeleopJoules extends LinearOpMode
         // I don't think we need a middle position
         if (gamepad2.dpad_up)
         {
-            robot.linearSlide.setTargetPosition(ServoMotorPosConstants.LINEAR_SLIDE_TOP_POSITION);
+            robot.linearSlide.setTargetPosition(ServoMotorPosConstants.LINEAR_SLIDE_HIGHEST_POSITION);
             robot.linearSlide.setPower(ServoMotorPosConstants.LINEAR_SLIDE_POWER);
         }
 
@@ -127,6 +130,10 @@ public class TeleopJoules extends LinearOpMode
         else if (Math.abs(gamepad2.left_trigger) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
             robot.wrist.setPosition(ServoMotorPosConstants.WRIST_RELEASE_POSITION);
+        }
+        else if (gamepad2.dpad_up)
+        {
+            robot.wrist.setPosition(ServoMotorPosConstants.WRIST_DRIVING_POSITION);
         }
     }
 
@@ -202,8 +209,7 @@ public class TeleopJoules extends LinearOpMode
         double newArmPosition = (robot.right.getPosition() + robot.left.getPosition()) / 2;
 
         if (pad1RightTrigger != 0) {
-            newArmPosition -= (pad1RightTrigger /
-                    300);
+            newArmPosition -= (pad1RightTrigger / 300);
         } else if (pad1LeftTrigger != 0) {
             newArmPosition += (pad1LeftTrigger / 300);
         }
