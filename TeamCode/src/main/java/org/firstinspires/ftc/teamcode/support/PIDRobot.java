@@ -220,13 +220,13 @@ public class PIDRobot
 
     /**
      * Strafe in the lateral (left/right) direction, maintain the current heading and don't drift fwd/bwd
-     * @param distanceInches  Distance to travel.  +ve = left, -ve = right.
+     * @param distanceInches  Distance to travel.  -ve = left, +ve = right.
      * @param power Maximum power to apply.  This number should always be positive.
      * @param holdTime Minimum time (sec) required to hold the final position.  0 = no hold.
      */
     public void strafe(double distanceInches, double power, double holdTime) {
         resetOdometry();
-
+        distanceInches *= -1;
         driveController.reset(0.0);             //  Maintain zero drive drift
         strafeController.reset(distanceInches, power);  // Achieve desired Strafe distance
         yawController.reset();                          // Maintain last turn angle
@@ -253,12 +253,12 @@ public class PIDRobot
     /**
      * Rotate to an absolute heading/direction.
      * Note: this is relative to the robot start location unless resetHeading() is used
-     * @param headingRad  Heading to obtain.  +ve = CCW, -ve = CW.
+     * @param headingRad  Heading to obtain.  -ve = CCW, +ve = CW.
      * @param power Maximum power to apply.  This number should always be positive.
      * @param holdTime Minimum time (sec) required to hold the final position.  0 = no hold.
      */
     public void turnTo(double headingRad, double power, double holdTime) {
-
+        headingRad *= -1;
         yawController.reset(headingRad, power);
         while (myOpMode.opModeIsActive() && readSensors()) {
 

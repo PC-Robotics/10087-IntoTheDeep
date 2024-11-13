@@ -6,14 +6,16 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name="AutoJoules", group="Robot")
-public class AutoJoules extends LinearOpMode
+@Autonomous(name="OneSpecimenAutoJoules", group="Robot")
+public class OneSpecimenAutoJoules extends LinearOpMode
 {
     JoulesRobot robot = new JoulesRobot(this);
 
     public void runOpMode()
     {
         robot.init();
+        robot.claw.setPosition(ServoMotorPosConstants.CLAW_OPEN_POSITION);
+        sleep(3000);
         robot.claw.setPosition(ServoMotorPosConstants.CLAW_CLOSED_POSITION);
         updateTelemetryData();
         waitForStart();
@@ -32,14 +34,9 @@ public class AutoJoules extends LinearOpMode
         robot.linearSlide.setPower(0);
         robot.claw.setPosition(ServoMotorPosConstants.CLAW_OPEN_POSITION);
 
-        for (int i = 0; i < 3; i++)
-        {
-            robot.drive(-10, ServoMotorPosConstants.MAX_DRIVING_POWER, 0.2);
-            robot.strafe(24 + 2 * i, ServoMotorPosConstants.MAX_DRIVING_POWER, 0.2);
-            robot.turnTo(radians(-90), ServoMotorPosConstants.MAX_DRIVING_POWER, 0.2);
-            robot.drive(10, ServoMotorPosConstants.MAX_DRIVING_POWER, 0.2);
-            robot.claw.setPosition(ServoMotorPosConstants.CLAW_CLOSED_POSITION);
-        }
+        robot.drive(-18, ServoMotorPosConstants.MAX_DRIVING_POWER, 0.2);
+        robot.strafe(24, ServoMotorPosConstants.MAX_DRIVING_POWER, 0.2);
+
 
 
     }
