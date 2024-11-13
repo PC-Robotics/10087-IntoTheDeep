@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.support.PIDRobot;
 
 public class OdometryDirectionTeleop extends LinearOpMode {
 
-    final double MOTOR_SCALING = 0.2;           // Maximum Motor Output?
+    final double PRECISE_MOVEMENT = 0.2;           // Maximum Motor Output?
 
     PIDRobot robot = new PIDRobot(this,false);
 
@@ -51,19 +51,19 @@ public class OdometryDirectionTeleop extends LinearOpMode {
             // TODO: check that these directions are correct
             if(gamepad1.dpad_left)
             {
-                x = -MOTOR_SCALING;
+                x = -PRECISE_MOVEMENT;
             }
             else if(gamepad1.dpad_right)
             {
-                x = MOTOR_SCALING;
+                x = PRECISE_MOVEMENT;
             }
             else if(gamepad1.dpad_up)
             {
-                y = -MOTOR_SCALING;
+                y = -PRECISE_MOVEMENT;
             }
             else if(gamepad1.dpad_down)
             {
-                y = MOTOR_SCALING;
+                y = PRECISE_MOVEMENT;
             }
 
             robot.moveRobot(x,y,turn,1);
