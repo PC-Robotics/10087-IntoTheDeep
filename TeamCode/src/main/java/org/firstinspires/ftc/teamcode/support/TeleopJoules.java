@@ -48,6 +48,8 @@ public class TeleopJoules extends LinearOpMode
         robot.claw.setPosition(ServoMotorPosConstants.CLAW_CLOSED_POSITION);
     }
 
+
+//Why is this function not doing anything
     public void goDefaultPositions()
     {
         //set intake servo positions
@@ -91,7 +93,8 @@ public class TeleopJoules extends LinearOpMode
             robot.linearSlide.setPower(0.0);
         }
     }
-
+    
+    /*
     public void slidesPresetHeights()
     {
         // TODO: This may cause a skip of the middle position if it reads one button press as several
@@ -108,6 +111,8 @@ public class TeleopJoules extends LinearOpMode
             robot.linearSlide.setPower(ServoMotorPosConstants.LINEAR_SLIDE_POWER);
         }
     }
+
+     */
 
     public void bucketTilts()
     {

@@ -26,6 +26,8 @@ import static org.firstinspires.ftc.teamcode.support.OdometryConstants.YAW_DEADB
 import static org.firstinspires.ftc.teamcode.support.OdometryConstants.YAW_MAX_AUTO;
 import static org.firstinspires.ftc.teamcode.support.OdometryConstants.YAW_TOLERANCE;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -95,6 +97,8 @@ public class PIDRobot
      */
     public void init(boolean showTelemetry)
     {
+
+
         // Initialize the drive train motors
         // Currently running them with encoders to use the PID controls and odometry
         frontRight = setupMotor("frontRight", DcMotor.Direction.FORWARD, true);
@@ -214,6 +218,8 @@ public class PIDRobot
                 holdTimer.reset();
             }
             myOpMode.sleep(10);
+
+            myOpMode.telemetry.update();
         }
         stopRobot();
     }
@@ -246,6 +252,8 @@ public class PIDRobot
                 holdTimer.reset();
             }
             myOpMode.sleep(10);
+
+            myOpMode.telemetry.update();
         }
         stopRobot();
     }
@@ -276,6 +284,8 @@ public class PIDRobot
             myOpMode.sleep(10);
         }
         stopRobot();
+
+        myOpMode.telemetry.update();
     }
 
 
