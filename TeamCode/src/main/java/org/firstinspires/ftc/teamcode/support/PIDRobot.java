@@ -267,7 +267,7 @@ public class PIDRobot
      */
     public void turnTo(double headingRad, double power, double holdTime) {
 
-        yawController.reset(headingRad, power);
+        yawController.reset(headingRad, power);     // KD .21    KI  .08  KP 1.55
         while (myOpMode.opModeIsActive() && readSensors()) {
 
             // implement desired axis powers
@@ -282,6 +282,7 @@ public class PIDRobot
                 holdTimer.reset();
             }
             myOpMode.sleep(10);
+            myOpMode.telemetry.update();
         }
         stopRobot();
 

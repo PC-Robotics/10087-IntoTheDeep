@@ -19,9 +19,9 @@ public class ConfigConstants
     public static double STRAFE_KD = 0.075;
 
 
-    public static double YAW_KP = 1.8;
-    public static double YAW_KI = 0.1;
-    public static double YAW_KD = 0.1;
+    public static double YAW_KP = 1.55;
+    public static double YAW_KI = 0.08;
+    public static double YAW_KD = 0.21;
 
     public static String TESTED_SERVO = "wrist";
 
