@@ -29,15 +29,16 @@ public class AutoJoules extends LinearOpMode
         robot.linearSlide.setTargetPosition(2000);
         robot.linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.linearSlide.setPower(0.5);
-        //robot.setPowers(0.45, 0.45, 0.45, 0.45);
-        sleep(5000);
+        robot.drive(-23, .5, 1000);
+        sleep(1500);
         robot.linearSlide.setTargetPosition(1186);//1350 is on the bar//     1183 is cliped to bar    1210 is release
-        sleep(5000);
+        sleep(1500);
         robot.linearSlide.setTargetPosition(1230);
         robot.claw.setPosition(ServoMotorPosConstants.CLAW_OPEN_POSITION);
-        //robot.setPowers(-0.4, -0.4, -0.4, -0.4);
-        sleep(5000);
+        robot.drive(21, .3, 1000);
+        sleep(1500);
         robot.linearSlide.setTargetPosition(0);
+        robot.strafe(-24, .3, 1000);
     }
 
     private void updateTelemetryData() {
