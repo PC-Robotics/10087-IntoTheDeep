@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name="AutoJoules", group="Robot")
+@Autonomous(name="AutoJoulesTest", group="Robot")
 public class AutoJoules extends LinearOpMode
 {
     JoulesRobot robot = new JoulesRobot(this);
@@ -15,52 +15,45 @@ public class AutoJoules extends LinearOpMode
     {
         robot.init();
         robot.claw.setPosition(ServoMotorPosConstants.CLAW_CLOSED_POSITION);
+        robot.wrist.setPosition(ServoMotorPosConstants.WRIST_DRIVING_POSITION);
         updateTelemetryData();
         waitForStart();
 
-        robot.claw.setPosition(ServoMotorPosConstants.CLAW_CLOSED_POSITION);
-
-        //Linear Slide position to above bar
-        slideToPos(ServoMotorPosConstants.LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
-
-        //Goes to the specimen hanging bar
-        robot.drive(20, ServoMotorPosConstants.MAX_DRIVING_POWER, 0.2);
-
-        //Putting the specimen on the bar
-        slideToPos(ServoMotorPosConstants.LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
+/*
+        robot.setPowers(0.5, 0.5, 0.5, 0.5);
         sleep(1000);
-        robot.linearSlide.setPower(0);
-        robot.claw.setPosition(ServoMotorPosConstants.CLAW_OPEN_POSITION);
+        robot.setPowers(0, 0, 0, 0);
+ */
 
-        for (int i = 0; i < 3; i++)
-        {
-            robot.drive(-10, ServoMotorPosConstants.MAX_DRIVING_POWER, 0.2);
-            robot.strafe(24 + 2 * i, ServoMotorPosConstants.MAX_DRIVING_POWER, 0.2);
-            robot.turnTo(radians(-90), ServoMotorPosConstants.MAX_DRIVING_POWER, 0.2);
-            robot.drive(10, ServoMotorPosConstants.MAX_DRIVING_POWER, 0.2);
-            robot.claw.setPosition(ServoMotorPosConstants.CLAW_CLOSED_POSITION);
-        }
-
-
-    }
-
-    private void slideToPos(int pos)
-    {
-        robot.linearSlide.setTargetPosition(pos);
+        //testing area
+        robot.bucket.setPosition(ServoMotorPosConstants.BUCKET_PICKUP_POSITION);
+        robot.linearSlide.setTargetPosition(2100);
         robot.linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.linearSlide.setPower(ServoMotorPosConstants.LINEAR_SLIDE_POWER);
-    }
-
-    private double radians(double degrees)
-    {
-        return degrees * Math.PI / 180;
+        robot.linearSlide.setPower(0.7);
+        sleep(1500);
+        robot.setPowers(.41,.41,.41,.41);
+        //robot.drive(-23, .5, 1000);
+        sleep(1500);
+        robot.setPowers(0,0,0,0);
+        robot.linearSlide.setTargetPosition(1200);//1350 is on the bar//     1183 is cliped to bar    1210 is release
+        sleep(3000);
+        robot.linearSlide.setTargetPosition(1250);
+        robot.claw.setPosition(ServoMotorPosConstants.CLAW_OPEN_POSITION);
+        sleep(3000);
+        //robot.drive(21, .3, 1000);
+        robot.setPowers(-.3,-.3,-.3,-.3);
+        sleep(500);
+        robot.setPowers(0,0,0,0);
+        sleep(1500);
+        robot.linearSlide.setTargetPosition(0);
+       // robot.strafe(-24, .3, 1000);
     }
 
     private void updateTelemetryData() {
         telemetry.addData("Subsystem Data ", "-----")
                 .addData("Slide Position: ", robot.linearSlide.getCurrentPosition())
                 .addData("Bucket Position: ", robot.bucket.getPosition())
-                .addData("Trolley Positions: \nLeft: ", robot.left.getPosition())
+                .addData("Trolley Positions: \nleft: ", robot.left.getPosition())
                 .addData("Right: ", robot.right.getPosition())
                 .addData("Claw Position: ", robot.claw.getPosition())
                 .addData("Wrist Position: ", robot.wrist.getPosition())

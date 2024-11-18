@@ -40,6 +40,7 @@ public class ServoPositionLocator extends LinearOpMode {
         // Connect to the servo
         // Change device name in ConfigConstants or on FTC Dashboard
         servo = hardwareMap.get(Servo.class, TESTED_SERVO);
+//Middle = .22      down = .69     Up = zero
 
         telemetry.addData(">", "Press Start to test "+TESTED_SERVO );
         telemetry.update();

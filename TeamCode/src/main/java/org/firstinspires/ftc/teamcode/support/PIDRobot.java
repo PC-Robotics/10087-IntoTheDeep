@@ -26,6 +26,8 @@ import static org.firstinspires.ftc.teamcode.support.OdometryConstants.YAW_DEADB
 import static org.firstinspires.ftc.teamcode.support.OdometryConstants.YAW_MAX_AUTO;
 import static org.firstinspires.ftc.teamcode.support.OdometryConstants.YAW_TOLERANCE;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -95,6 +97,8 @@ public class PIDRobot
      */
     public void init(boolean showTelemetry)
     {
+
+
         // Initialize the drive train motors
         // Currently running them with encoders to use the PID controls and odometry
         frontRight = setupMotor("frontRight", DcMotor.Direction.FORWARD, true);
@@ -214,19 +218,21 @@ public class PIDRobot
                 holdTimer.reset();
             }
             myOpMode.sleep(10);
+
+            myOpMode.telemetry.update();
         }
         stopRobot();
     }
 
     /**
      * Strafe in the lateral (left/right) direction, maintain the current heading and don't drift fwd/bwd
-     * @param distanceInches  Distance to travel.  -ve = left, +ve = right.
+     * @param distanceInches  Distance to travel.  +ve = left, -ve = right.
      * @param power Maximum power to apply.  This number should always be positive.
      * @param holdTime Minimum time (sec) required to hold the final position.  0 = no hold.
      */
     public void strafe(double distanceInches, double power, double holdTime) {
         resetOdometry();
-        distanceInches *= -1;
+
         driveController.reset(0.0);             //  Maintain zero drive drift
         strafeController.reset(distanceInches, power);  // Achieve desired Strafe distance
         yawController.reset();                          // Maintain last turn angle
@@ -246,6 +252,8 @@ public class PIDRobot
                 holdTimer.reset();
             }
             myOpMode.sleep(10);
+
+            myOpMode.telemetry.update();
         }
         stopRobot();
     }
@@ -253,13 +261,13 @@ public class PIDRobot
     /**
      * Rotate to an absolute heading/direction.
      * Note: this is relative to the robot start location unless resetHeading() is used
-     * @param headingRad  Heading to obtain.  -ve = CCW, +ve = CW.
+     * @param headingRad  Heading to obtain.  +ve = CCW, -ve = CW.
      * @param power Maximum power to apply.  This number should always be positive.
      * @param holdTime Minimum time (sec) required to hold the final position.  0 = no hold.
      */
     public void turnTo(double headingRad, double power, double holdTime) {
-        headingRad *= -1;
-        yawController.reset(headingRad, power);
+
+        yawController.reset(headingRad, power);     // KD .21    KI  .08  KP 1.55
         while (myOpMode.opModeIsActive() && readSensors()) {
 
             // implement desired axis powers
@@ -274,8 +282,11 @@ public class PIDRobot
                 holdTimer.reset();
             }
             myOpMode.sleep(10);
+            myOpMode.telemetry.update();
         }
         stopRobot();
+
+        myOpMode.telemetry.update();
     }
 
 
