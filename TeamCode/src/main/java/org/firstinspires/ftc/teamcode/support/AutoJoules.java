@@ -15,6 +15,7 @@ public class AutoJoules extends LinearOpMode
     {
         robot.init();
         robot.claw.setPosition(ServoMotorPosConstants.CLAW_CLOSED_POSITION);
+        robot.wrist.setPosition(ServoMotorPosConstants.WRIST_DRIVING_POSITION);
         updateTelemetryData();
         waitForStart();
 
@@ -26,19 +27,26 @@ public class AutoJoules extends LinearOpMode
 
         //testing area
         robot.bucket.setPosition(ServoMotorPosConstants.BUCKET_PICKUP_POSITION);
-        robot.linearSlide.setTargetPosition(2000);
+        robot.linearSlide.setTargetPosition(2100);
         robot.linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.linearSlide.setPower(0.5);
-        robot.drive(-23, .5, 1000);
+        robot.linearSlide.setPower(0.7);
         sleep(1500);
-        robot.linearSlide.setTargetPosition(1186);//1350 is on the bar//     1183 is cliped to bar    1210 is release
+        robot.setPowers(.41,.41,.41,.41);
+        //robot.drive(-23, .5, 1000);
         sleep(1500);
-        robot.linearSlide.setTargetPosition(1230);
+        robot.setPowers(0,0,0,0);
+        robot.linearSlide.setTargetPosition(1200);//1350 is on the bar//     1183 is cliped to bar    1210 is release
+        sleep(3000);
+        robot.linearSlide.setTargetPosition(1250);
         robot.claw.setPosition(ServoMotorPosConstants.CLAW_OPEN_POSITION);
-        robot.drive(21, .3, 1000);
+        sleep(3000);
+        //robot.drive(21, .3, 1000);
+        robot.setPowers(-.3,-.3,-.3,-.3);
+        sleep(500);
+        robot.setPowers(0,0,0,0);
         sleep(1500);
         robot.linearSlide.setTargetPosition(0);
-        robot.strafe(-24, .3, 1000);
+       // robot.strafe(-24, .3, 1000);
     }
 
     private void updateTelemetryData() {
