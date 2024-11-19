@@ -19,34 +19,35 @@ public class AutoJoules extends LinearOpMode
         updateTelemetryData();
         waitForStart();
 
-/*
-        robot.setPowers(0.5, 0.5, 0.5, 0.5);
-        sleep(1000);
-        robot.setPowers(0, 0, 0, 0);
- */
-
-        //testing area
         robot.bucket.setPosition(ServoMotorPosConstants.BUCKET_PICKUP_POSITION);
-        robot.linearSlide.setTargetPosition(2100);
-        robot.linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.linearSlide.setPower(0.7);
+        linearSlideMove(2100);
         sleep(1500);
         robot.setPowers(.41,.41,.41,.41);
-        //robot.drive(-23, .5, 1000);
         sleep(1500);
         robot.setPowers(0,0,0,0);
-        robot.linearSlide.setTargetPosition(1200);//1350 is on the bar//     1183 is cliped to bar    1210 is release
+        linearSlideMove(1200);//1350 is on the bar//     1183 is cliped to bar    1210 is release
         sleep(3000);
-        robot.linearSlide.setTargetPosition(1250);
+        linearSlideMove(1250);
         robot.claw.setPosition(ServoMotorPosConstants.CLAW_OPEN_POSITION);
-        sleep(3000);
-        //robot.drive(21, .3, 1000);
-        robot.setPowers(-.3,-.3,-.3,-.3);
-        sleep(500);
+        sleep(1250);
+        robot.setPowers(-.40,-.40,-.40,-.40);
+        sleep(1250);
         robot.setPowers(0,0,0,0);
-        sleep(1500);
-        robot.linearSlide.setTargetPosition(0);
-       // robot.strafe(-24, .3, 1000);
+        sleep(1250);
+        linearSlideMove(0);
+        sleep(1000);
+        robot.turnTo(Math.PI/2, .8, 0);
+        sleep(1000);
+        robot.setPowers(.5, .5, .5, .5);
+    }
+
+
+    // This method moves the linear slide to a specified target position
+    private void linearSlideMove(int targPos)
+    {
+        robot.linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.linearSlide.setPower(0.7);
+        robot.linearSlide.setTargetPosition(targPos);
     }
 
     private void updateTelemetryData() {
