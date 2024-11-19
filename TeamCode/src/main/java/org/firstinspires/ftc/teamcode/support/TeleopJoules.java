@@ -45,7 +45,7 @@ public class TeleopJoules extends LinearOpMode
         robot.bucket.setPosition(ServoMotorPosConstants.BUCKET_PICKUP_POSITION);
         robot.right.setPosition(ServoMotorPosConstants.ARM_IN_POSITION);
         robot.left.setPosition(ServoMotorPosConstants.ARM_IN_POSITION);
-        robot.claw.setPosition(ServoMotorPosConstants.CLAW_CLOSED_POSITION);
+        robot.claw.setPosition(ServoMotorPosConstants.CLAW_OPEN_POSITION);
     }
 
 

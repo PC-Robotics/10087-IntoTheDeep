@@ -19,35 +19,47 @@ public class AutoJoules extends LinearOpMode
         updateTelemetryData();
         waitForStart();
 
+
         robot.bucket.setPosition(ServoMotorPosConstants.BUCKET_PICKUP_POSITION);
-        linearSlideMove(2100);
+        robot.linearSlide.setTargetPosition(2100);
+        robot.linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.linearSlide.setPower(0.7);
         sleep(1500);
-        robot.setPowers(.41,.41,.41,.41);
-        sleep(1500);
+        robot.setPowers(0.429, 0.429, 0.429, 0.429);
+        sleep(1450);
         robot.setPowers(0,0,0,0);
-        linearSlideMove(1200);//1350 is on the bar//     1183 is cliped to bar    1210 is release
-        sleep(3000);
-        linearSlideMove(1250);
+        sleep(300);
+        robot.linearSlide.setTargetPosition(1186);//1350 is on the bar//     1183 is cliped to bar    1210 is release
+        sleep(500);
+        robot.linearSlide.setTargetPosition(1230);
+        robot.linearSlide.setPower(0.7);
+        sleep(400);
+        //1350 is on the bar//     1183 is cliped to bar    1210 is release
+
         robot.claw.setPosition(ServoMotorPosConstants.CLAW_OPEN_POSITION);
-        sleep(1250);
-        robot.setPowers(-.40,-.40,-.40,-.40);
-        sleep(1250);
+        sleep(1000);
+        robot.setPowers(-0.4, -0.4, -0.4, -0.4);
+        sleep(1000);
         robot.setPowers(0,0,0,0);
-        sleep(1250);
-        linearSlideMove(0);
+        //robot.drive(21, .3, 1000);
+        robot.linearSlide.setTargetPosition(0);
         sleep(1000);
-        robot.turnTo(Math.PI/2, .8, 0);
+        robot.setPowers(.43,-.43,.43,-.43);
         sleep(1000);
-        robot.setPowers(.5, .5, .5, .5);
+        robot.setPowers(-.7,-.7,-.7,-.7);
+        sleep(1500);
+        robot.setPowers(0,0,0,0);
+
+
+        // robot.strafe(-24, .3, 1000);
     }
 
 
     // This method moves the linear slide to a specified target position
-    private void linearSlideMove(int targPos)
+    private void linearSlideMove(int linearSlideMove)
     {
-        robot.linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.linearSlide.setTargetPosition(linearSlideMove);
         robot.linearSlide.setPower(0.7);
-        robot.linearSlide.setTargetPosition(targPos);
     }
 
     private void updateTelemetryData() {
