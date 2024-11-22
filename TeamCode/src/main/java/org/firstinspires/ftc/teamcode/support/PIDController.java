@@ -51,11 +51,11 @@ public class PIDController {
 
         inPosition = (Math.abs(error) < tolerance);
 
-        if(Math.abs(error) <= deadband)
-        {
-            output = 0;
-        }
-        else
+        //if(Math.abs(error) <= deadband)
+        //{
+        //    output = 0;
+        //}
+        //else
         {
             // Only begin using integral component when the robot gets close
             // This helps dampen overshooting
@@ -66,8 +66,8 @@ public class PIDController {
             output = (error*Kp) + (derivative*Kd) + (integralSum*Ki);
             output = Range.clip(output, -liveOutputLimit,liveOutputLimit);
 
-            if((output-lastOutput) > dV) output = lastOutput + dV;
-            else if((output-lastOutput) < dV) output = lastOutput - dV;
+            //if((output-lastOutput) > dV) output = lastOutput + dV;
+            //else if((output-lastOutput) < dV) output = lastOutput - dV;
 
         }
         lastOutput = output;

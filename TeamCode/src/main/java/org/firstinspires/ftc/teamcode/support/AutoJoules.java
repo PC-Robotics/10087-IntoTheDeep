@@ -23,8 +23,8 @@ public class AutoJoules extends LinearOpMode
         robot.bucket.setPosition(ServoMotorPosConstants.BUCKET_PICKUP_POSITION);
         robot.linearSlide.setTargetPosition(2100);
         robot.linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.linearSlide.setPower(0.7);
-        sleep(1500);
+        robot.linearSlide.setPower(1);
+        sleep(700);
         robot.setPowers(0.429, 0.429, 0.429, 0.429);
         sleep(1450);
         robot.setPowers(0,0,0,0);
@@ -38,17 +38,28 @@ public class AutoJoules extends LinearOpMode
 
         robot.claw.setPosition(ServoMotorPosConstants.CLAW_OPEN_POSITION);
         sleep(1000);
-        robot.setPowers(-0.4, -0.4, -0.4, -0.4);
+        robot.setPowers(-0.42, -0.42, -0.42, -0.42);
         sleep(1000);
         robot.setPowers(0,0,0,0);
         //robot.drive(21, .3, 1000);
         robot.linearSlide.setTargetPosition(0);
         sleep(1000);
+        robot.setPowers(.65, -.65, -.65,.65);
+        sleep(2500);
+        robot.setPowers(0,0,0,0);
+        sleep(500);
+        robot.setPowers(0.7,-0.7,0.7,-0.7);
+        sleep(1000);
+        robot.claw.setPosition(ServoMotorPosConstants.CLAW_CLOSED_POSITION);
+        robot.setPowers(.1,.1,.1,.1);
+        /*
         robot.setPowers(.43,-.43,.43,-.43);
         sleep(1000);
         robot.setPowers(-.7,-.7,-.7,-.7);
         sleep(1500);
         robot.setPowers(0,0,0,0);
+        */
+
 
 
         // robot.strafe(-24, .3, 1000);
@@ -61,6 +72,8 @@ public class AutoJoules extends LinearOpMode
         robot.linearSlide.setTargetPosition(linearSlideMove);
         robot.linearSlide.setPower(0.7);
     }
+
+
 
     private void updateTelemetryData() {
         telemetry.addData("Subsystem Data ", "-----")
