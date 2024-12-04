@@ -2,11 +2,13 @@ package org.firstinspires.ftc.teamcode.support;
 
 
 
+import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.*;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name="AutoJoulesTest", group="Robot")
+@Autonomous(name="AutoJoules", group="Robot")
 public class AutoJoules extends LinearOpMode
 {
     JoulesRobot robot = new JoulesRobot(this);
@@ -14,52 +16,62 @@ public class AutoJoules extends LinearOpMode
     public void runOpMode()
     {
         robot.init();
-        robot.claw.setPosition(ServoMotorPosConstants.CLAW_CLOSED_POSITION);
-        robot.wrist.setPosition(ServoMotorPosConstants.WRIST_DRIVING_POSITION);
+        robot.claw.setPosition(CLAW_CLOSED_POSITION);
+        robot.wrist.setPosition(WRIST_DRIVING_POSITION);
         updateTelemetryData();
         waitForStart();
 
+        robot.claw.setPosition(CLAW_CLOSED_POSITION);
 
-        robot.bucket.setPosition(ServoMotorPosConstants.BUCKET_PICKUP_POSITION);
-        robot.linearSlide.setTargetPosition(2100);
-        robot.linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.linearSlide.setPower(0.7);
-        sleep(1500);
-        robot.setPowers(0.429, 0.429, 0.429, 0.429);
-        sleep(1450);
-        robot.setPowers(0,0,0,0);
-        sleep(300);
-        robot.linearSlide.setTargetPosition(1186);//1350 is on the bar//     1183 is cliped to bar    1210 is release
-        sleep(500);
-        robot.linearSlide.setTargetPosition(1230);
-        robot.linearSlide.setPower(0.7);
-        sleep(400);
-        //1350 is on the bar//     1183 is cliped to bar    1210 is release
+        //Linear Slide position to above bar
+        linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
 
-        robot.claw.setPosition(ServoMotorPosConstants.CLAW_OPEN_POSITION);
+        //Goes to the specimen hanging bar
+        robot.drive(20, MAX_DRIVING_POWER, 0.2);
+
+        //Putting the specimen on the bar
+        linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
         sleep(1000);
-        robot.setPowers(-0.4, -0.4, -0.4, -0.4);
-        sleep(1000);
-        robot.setPowers(0,0,0,0);
-        //robot.drive(21, .3, 1000);
-        robot.linearSlide.setTargetPosition(0);
-        sleep(1000);
-        robot.setPowers(.43,-.43,.43,-.43);
-        sleep(1000);
-        robot.setPowers(-.7,-.7,-.7,-.7);
-        sleep(1500);
-        robot.setPowers(0,0,0,0);
+        robot.linearSlide.setPower(0);
+        robot.claw.setPosition(CLAW_OPEN_POSITION);
+
+        for (int i = 0; i < 3; i++)
+        {
+            //pull away from bar
+            robot.drive(-10, MAX_DRIVING_POWER, 0.2);
+
+            //positioning above a sample about to push into human zone
+            robot.strafe(36, MAX_DRIVING_POWER, 0.2);
+            robot.drive(30, MAX_DRIVING_POWER, 0.2);
+            robot.strafe(10 + 6 * i, MAX_DRIVING_POWER, 0.2);
+
+            //go to human zone while dragging a pixel
+            robot.turnTo(radians(180), MAX_DRIVING_POWER, 0.2);
+            robot.drive(50, MAX_DRIVING_POWER, 0.2);
+
+            //go to specimen grabbing spot
+            robot.strafe(3 + 6 * i, MAX_DRIVING_POWER, 0.2);
+
+            //mission success?
+            robot.claw.setPosition(CLAW_CLOSED_POSITION);
 
 
-        // robot.strafe(-24, .3, 1000);
+
+
+        }
     }
 
-
-    // This method moves the linear slide to a specified target position
-    private void linearSlideMove(int linearSlideMove)
+    private void linearSlideMove(int targPos)
     {
-        robot.linearSlide.setTargetPosition(linearSlideMove);
-        robot.linearSlide.setPower(0.7);
+        robot.linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.linearSlide.setTargetPosition(targPos);
+        robot.linearSlide.setPower(LINEAR_SLIDE_POWER);
+    }
+
+    private double radians(double degrees)
+    {
+        double radians = degrees * Math.PI / 180;
+        return radians;
     }
 
     private void updateTelemetryData() {

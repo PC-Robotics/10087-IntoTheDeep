@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class JoulesRobot extends PIDRobot
 {
+    //Instantiating all but drive train motors or encoders
     public DcMotor linearSlide = null;
     public Servo wrist = null;
     public CRServo intake = null;
