@@ -17,7 +17,7 @@ public class OdometryConstants {
     public static final double DRIVE_ACCEL         = 2.0;     // Acceleration limit.  Percent Power change per second.  1.0 = 0-100% power in 1 sec.
     public static final double DRIVE_TOLERANCE     = 0.5;     // Controller is is "inPosition" if position error is < +/- this amount
     public static final double DRIVE_DEADBAND      = 0.2;     // Error less than this causes zero output.  Must be smaller than DRIVE_TOLERANCE
-    public static final double DRIVE_MAX_AUTO      = .5;     // "default" Maximum Axial power limit during autonomous
+    public static final double DRIVE_MAX_AUTO      = .7;     // "default" Maximum Axial power limit during autonomous
 
     public static final double STRAFE_ACCEL        = 1.5;     // Acceleration limit.  Percent Power change per second.  1.0 = 0-100% power in 1 sec.
     public static final double STRAFE_TOLERANCE    = 0.5;     // Controller is is "inPosition" if position error is < +/- this amount
