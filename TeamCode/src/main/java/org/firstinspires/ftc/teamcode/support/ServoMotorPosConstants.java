@@ -14,6 +14,7 @@ public class ServoMotorPosConstants
     public static final int LINEAR_SLIDE_HIGHEST_POSITION = 4100;
     public static final int LINEAR_SLIDE_SPECIMEN_UPPER_POSITION = 2500;
     public static final int LINEAR_SLIDE_SPECIMEN_LOWER_POSITION = 2000;
+    public static final int LINEAR_SLIDE_TOUCHING_POSITION = 2400;
 
     public static final double CLAW_OPEN_POSITION = .5;
     public static final double CLAW_CLOSED_POSITION = .69;

@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name="AutoJoules", group="Robot")
-public class AutoJoules extends LinearOpMode
+@Autonomous(name="ClipsAutoJoules", group="Robot")
+public class ClipsAutoJoules extends LinearOpMode
 {
     JoulesRobot robot = new JoulesRobot(this);
 

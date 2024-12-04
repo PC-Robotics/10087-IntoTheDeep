@@ -49,7 +49,6 @@ public class TeleopJoules extends LinearOpMode
     }
 
 
-//Why is this function not doing anything
     public void goDefaultPositions()
     {
         //set intake servo positions
