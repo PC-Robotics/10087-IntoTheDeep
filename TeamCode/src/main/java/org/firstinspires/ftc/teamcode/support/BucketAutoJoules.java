@@ -27,7 +27,7 @@ public class BucketAutoJoules extends LinearOpMode
         linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
 
         //Goes to the specimen hanging bar
-        robot.drive(20, MAX_DRIVING_POWER, 0.2);
+        robot.drive(20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
         //Putting the specimen on the bar
         linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
@@ -36,20 +36,20 @@ public class BucketAutoJoules extends LinearOpMode
         robot.claw.setPosition(CLAW_OPEN_POSITION);
 
         //pull away from bar
-        robot.drive(-10, MAX_DRIVING_POWER, 0.2);
+        robot.drive(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
         //positioning above a sample about to grab with rotator
-        robot.strafe(-36, MAX_DRIVING_POWER, 0.2);
-        robot.drive(30, MAX_DRIVING_POWER, 0.2);
-        robot.strafe(10, MAX_DRIVING_POWER, 0.2);
+        robot.strafe(-36, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(30, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.strafe(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
         //rotate the robot and intake down
-        robot.turnTo(radians(180), MAX_DRIVING_POWER, 0.2);
+        robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.wrist.setPosition(WRIST_INTAKE_POSITION);
 
         //intake the thing
         robot.intake.setPower(MAX_INTAKE_POWER);
-        robot.drive(10, MAX_DRIVING_POWER, 0.2);
+        robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
         //put it in the bucket
         robot.bucket.setPosition(BUCKET_PICKUP_POSITION);
@@ -57,86 +57,86 @@ public class BucketAutoJoules extends LinearOpMode
         robot.intake.setPower(-MAX_INTAKE_POWER);
 
         //drive to looking at the bucket
-        robot.drive(20, MAX_DRIVING_POWER, 0.2);
-        robot.turnTo(radians(-45), MAX_DRIVING_POWER, 0.2);
+        robot.drive(20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.turnTo(radians(-45), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
         //put the sample in the bucket
         linearSlideMove(LINEAR_SLIDE_HIGHEST_POSITION);
-        robot.drive(10, MAX_DRIVING_POWER, 0.2);
+        robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.linearSlide.setPower(0);
         robot.bucket.setPosition(BUCKET_RELEASE_POSITION);
 
         //return to before bucket adventure
-        robot.drive(-10, MAX_DRIVING_POWER, 0.2);
+        robot.drive(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         linearSlideMove(LINEAR_SLIDE_STARTING_POSITION);
-        robot.turnTo(radians(-45), MAX_DRIVING_POWER, 0.2);
+        robot.turnTo(radians(-45), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.linearSlide.setPower(0);
 
         //drive to above next sample
-        robot.drive(-30, MAX_DRIVING_POWER, 0.2);
-        robot.strafe(10, MAX_DRIVING_POWER, 0.2);
+        robot.drive(-30, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.strafe(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
         //intake the thing 2
         robot.intake.setPower(MAX_INTAKE_POWER);
-        robot.drive(10, MAX_DRIVING_POWER, 0.2);
+        robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
         //go to before bucket adventure 2
-        robot.strafe(-10, MAX_DRIVING_POWER, 0.2);
-        robot.turnTo(radians(-45), MAX_DRIVING_POWER, 0.2);
+        robot.strafe(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.turnTo(radians(-45), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
         //put the sample in the bucket 2
         linearSlideMove(LINEAR_SLIDE_HIGHEST_POSITION);
-        robot.drive(10, MAX_DRIVING_POWER, 0.2);
+        robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.linearSlide.setPower(0);
         robot.bucket.setPosition(BUCKET_RELEASE_POSITION);
 
         //return to before bucket adventure 2
-        robot.drive(-10, MAX_DRIVING_POWER, 0.2);
+        robot.drive(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         linearSlideMove(LINEAR_SLIDE_STARTING_POSITION);
-        robot.turnTo(radians(-45), MAX_DRIVING_POWER, 0.2);
+        robot.turnTo(radians(-45), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.linearSlide.setPower(0);
 
         //drive to right of third sample facing it
-        robot.drive(-20, MAX_DRIVING_POWER, 0.2);
-        robot.strafe(20, MAX_DRIVING_POWER, 0.2);
-        robot.turnTo(radians(-90), MAX_DRIVING_POWER, 0.2);
+        robot.drive(-20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.strafe(20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.turnTo(radians(-90), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
         //intake the third sample
         robot.intake.setPower(MAX_INTAKE_POWER);
-        robot.drive(10, MAX_DRIVING_POWER, 0.2);
+        robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
 
         //put the sample in the bucket 3
         linearSlideMove(LINEAR_SLIDE_HIGHEST_POSITION);
-        robot.drive(10, MAX_DRIVING_POWER, 0.2);
+        robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.linearSlide.setPower(0);
         robot.bucket.setPosition(BUCKET_RELEASE_POSITION);
 
         //drive away from wall and get ready for bucket adventure
-        robot.drive(-30, MAX_DRIVING_POWER, 0.2);
-        robot.turnTo(radians(90), MAX_DRIVING_POWER, 0.2);
-        robot.drive(30, MAX_DRIVING_POWER, 0.2);
-        robot.turnTo(radians(-45), MAX_DRIVING_POWER, 0.2);
+        robot.drive(-30, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.turnTo(radians(90), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(30, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.turnTo(radians(-45), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
 
         //put the sample in the bucket 3
         linearSlideMove(LINEAR_SLIDE_HIGHEST_POSITION);
-        robot.drive(10, MAX_DRIVING_POWER, 0.2);
+        robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.linearSlide.setPower(0);
         robot.bucket.setPosition(BUCKET_RELEASE_POSITION);
 
         //return to before bucket adventure 3
-        robot.drive(-10, MAX_DRIVING_POWER, 0.2);
+        robot.drive(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         linearSlideMove(LINEAR_SLIDE_STARTING_POSITION);
-        robot.turnTo(radians(-45), MAX_DRIVING_POWER, 0.2);
+        robot.turnTo(radians(-45), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.linearSlide.setPower(0);
 
         //go to white pentagon area
-        robot.drive(-30, MAX_DRIVING_POWER, 0.2);
-        robot.turnTo(radians(-90), MAX_DRIVING_POWER, 0.2);
-        robot.drive(-15, MAX_DRIVING_POWER, 0.2);
+        robot.drive(-30, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.turnTo(radians(-90), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(-15, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
-        //touch hanging thing for points
+        //touch hanging thing for parking points
         linearSlideMove(LINEAR_SLIDE_TOUCHING_POSITION);
         sleep(1000);
         robot.linearSlide.setPower(0);
