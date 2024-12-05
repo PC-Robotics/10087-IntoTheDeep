@@ -47,7 +47,13 @@ public class PIDConstantTuningAutonomous extends LinearOpMode {
             //robot.turnTo(Math.PI, YAW_MAX_AUTO, 0.5);
 
             // Test driving and strafing
-            robot.drive(2*FLOOR_TILE_INCHES,DRIVE_MAX_AUTO,0.25);
+            robot.drive(2*FLOOR_TILE_INCHES,DRIVE_MAX_AUTO,0.1);
+            robot.drive(-1*FLOOR_TILE_INCHES, DRIVE_MAX_AUTO, 0.1);
+            robot.turnTo(.5*Math.PI, YAW_MAX_AUTO, 0.2);
+            robot.drive(2*FLOOR_TILE_INCHES,DRIVE_MAX_AUTO,0.1);
+            robot.resetHeading();
+            robot.turnTo(-.5*Math.PI, YAW_MAX_AUTO, .2);
+            robot.drive(1*FLOOR_TILE_INCHES, DRIVE_MAX_AUTO, .1);
 
             /*
             robot.strafe(FLOOR_TILE_INCHES,STRAFE_MAX_AUTO,0.25);

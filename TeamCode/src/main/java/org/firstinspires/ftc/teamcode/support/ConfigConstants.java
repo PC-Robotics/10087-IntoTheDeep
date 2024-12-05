@@ -9,9 +9,9 @@ import com.acmerobotics.dashboard.config.Config;
 public class ConfigConstants
 {
     // PID Control constants
-    public static double DRIVE_KP = .498;   // ( possible 0.45)
-    public static double DRIVE_KI = 1.2;
-    public static double DRIVE_KD = 0.0516675;
+    public static double DRIVE_KP = 0.505;   // ( possible 0.45)
+    public static double DRIVE_KI = .109;
+    public static double DRIVE_KD = 0.09;
 
 
     public static double STRAFE_KP = 0.36;

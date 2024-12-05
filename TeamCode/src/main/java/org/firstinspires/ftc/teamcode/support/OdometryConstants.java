@@ -29,7 +29,7 @@ public class OdometryConstants {
     public static final double YAW_ACCEL           = 3.0;     // Acceleration limit.  Percent Power change per second.  1.0 = 0-100% power in 1 sec.
     public static final double YAW_TOLERANCE       = 0.035;   // Controller is is "inPosition" if position error is < +/- this amount
     public static final double YAW_DEADBAND        = 0.01;    // Error less than this causes zero output.  Must be smaller than DRIVE_TOLERANCE
-    public static final double YAW_MAX_AUTO        = 1;       // "default" Maximum Yaw power limit during autonomous
+    public static final double YAW_MAX_AUTO        = .7;       // "default" Maximum Yaw power limit during autonomous
 
 
 }
