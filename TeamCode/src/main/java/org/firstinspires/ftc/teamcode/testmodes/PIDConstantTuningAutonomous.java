@@ -46,22 +46,28 @@ public class PIDConstantTuningAutonomous extends LinearOpMode {
 
             //robot.turnTo(Math.PI, YAW_MAX_AUTO, 0.5);
 
-            // Test driving and strafing
+
             robot.drive(2*FLOOR_TILE_INCHES,DRIVE_MAX_AUTO,0.1);
+            sleep(500);
             robot.drive(-1*FLOOR_TILE_INCHES, DRIVE_MAX_AUTO, 0.1);
-            robot.turnTo(.5*Math.PI, YAW_MAX_AUTO, 0.2);
-            robot.drive(2*FLOOR_TILE_INCHES,DRIVE_MAX_AUTO,0.1);
-            robot.resetHeading();
-            robot.turnTo(-.5*Math.PI, YAW_MAX_AUTO, .2);
-            robot.drive(1*FLOOR_TILE_INCHES, DRIVE_MAX_AUTO, .1);
+            sleep(500);
+            robot.strafe(2*FLOOR_TILE_INCHES,STRAFE_MAX_AUTO, 0.1);
+            sleep(500);
+            robot.drive(1*FLOOR_TILE_INCHES, DRIVE_MAX_AUTO, 0.1);
+            sleep(500);
+            robot.turnTo(-.5*Math.PI, YAW_MAX_AUTO, 0.1);
+            sleep(500);
+            robot.strafe(-2*FLOOR_TILE_INCHES,STRAFE_MAX_AUTO,0.1);
+            sleep(500);
+            robot.drive(FLOOR_TILE_INCHES,DRIVE_MAX_AUTO,0.1);
+            sleep(500);
+            robot.turnTo(.5*Math.PI, YAW_MAX_AUTO, .1);
+
+
+
+
 
             /*
-            robot.strafe(FLOOR_TILE_INCHES,STRAFE_MAX_AUTO,0.25);
-            robot.drive(-FLOOR_TILE_INCHES,DRIVE_MAX_AUTO,0.25);
-            robot.strafe(-FLOOR_TILE_INCHES,STRAFE_MAX_AUTO,0.25);
-
-            sleep(500);
-
             // Test driving and turning
             robot.drive(  FLOOR_TILE_INCHES, DRIVE_MAX_AUTO, 0.25);
             robot.turnTo(Math.PI/2, YAW_MAX_AUTO, 0.5);

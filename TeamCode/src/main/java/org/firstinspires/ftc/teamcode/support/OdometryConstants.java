@@ -22,7 +22,7 @@ public class OdometryConstants {
     public static final double STRAFE_ACCEL        = 1.5;     // Acceleration limit.  Percent Power change per second.  1.0 = 0-100% power in 1 sec.
     public static final double STRAFE_TOLERANCE    = 0.5;     // Controller is is "inPosition" if position error is < +/- this amount
     public static final double STRAFE_DEADBAND     = 0.2;     // Error less than this causes zero output.  Must be smaller than DRIVE_TOLERANCE
-    public static final double STRAFE_MAX_AUTO     = 0.8;     // "default" Maximum Lateral power limit during autonomous
+    public static final double STRAFE_MAX_AUTO     = 0.65;     // "default" Maximum Lateral power limit during autonomous
 
     // Note that these yaw values are using radians, which is why the scale values are smaller
 
