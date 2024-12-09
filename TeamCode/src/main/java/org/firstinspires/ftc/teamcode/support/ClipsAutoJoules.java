@@ -16,8 +16,11 @@ public class ClipsAutoJoules extends LinearOpMode
     public void runOpMode()
     {
         robot.init();
+        robot.claw.setPosition(CLAW_OPEN_POSITION);
+        sleep(1000);
         robot.claw.setPosition(CLAW_CLOSED_POSITION);
         robot.wrist.setPosition(WRIST_DRIVING_POSITION);
+        robot.bucket.setPosition(BUCKET_PICKUP_POSITION);
         updateTelemetryData();
         waitForStart();
 
@@ -27,44 +30,81 @@ public class ClipsAutoJoules extends LinearOpMode
         linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
 
         //Goes to the specimen hanging bar
-        robot.drive(20, MAX_DRIVING_POWER, 0.2);
+        robot.drive(-29, MAX_DRIVING_POWER, 0.2);
+        robot.linearSlide.setPower(0);
 
         //Putting the specimen on the bar
         linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
         sleep(1000);
         robot.linearSlide.setPower(0);
         robot.claw.setPosition(CLAW_OPEN_POSITION);
+        sleep(1000);
 
+        //get to about to push the blocks into the human player zone
+        robot.drive(5, MAX_DRIVING_POWER, 0.2);
+        robot.strafe(-30, MAX_DRIVING_POWER, 0.2);
+        robot.drive(-20, MAX_DRIVING_POWER, 0.2);
+        robot.strafe(-10, MAX_DRIVING_POWER, 0.2);
+
+        sleep(1000);
+
+        //push the blocks into the human player zone
         for (int i = 0; i < 3; i++)
         {
-            //pull away from bar
-            robot.drive(-10, MAX_DRIVING_POWER, 0.2);
+            robot.strafe(10, MAX_DRIVING_POWER, 0.2);
+            robot.drive(-40, MAX_DRIVING_POWER, 0.2);
+            robot.drive(40, MAX_DRIVING_POWER, 0.2);
+            sleep(1000);
+        }
 
-            //positioning above a sample about to push into human zone
-            robot.strafe(36, MAX_DRIVING_POWER, 0.2);
-            robot.drive(30, MAX_DRIVING_POWER, 0.2);
-            robot.strafe(10 + 6 * i, MAX_DRIVING_POWER, 0.2);
 
-            //go to human zone while dragging a pixel
-            robot.turnTo(radians(180), MAX_DRIVING_POWER, 0.2);
-            robot.drive(50, MAX_DRIVING_POWER, 0.2);
+        //able to close claw and grab first of four specimens
+        robot.drive(10, MAX_DRIVING_POWER, 0.2);
+        robot.strafe(-10, MAX_DRIVING_POWER, 0.2);
+        linearSlideMove(LINEAR_SLIDE_SPECIMEN_WALL_POSITION);
+        robot.drive(-10, MAX_DRIVING_POWER, 0.2);
 
-            //go to specimen grabbing spot
-            robot.strafe(3 + 6 * i, MAX_DRIVING_POWER, 0.2);
-
-            //mission success?
+        for (int i = 0; i < 4; i++)
+        {
             robot.claw.setPosition(CLAW_CLOSED_POSITION);
 
+            //pull away from wall with specimen
+            robot.drive(10, MAX_DRIVING_POWER, 0.2);
+            robot.linearSlide.setPower(0);
+            robot.strafe(-25 + 2 * i, MAX_DRIVING_POWER, 0.2);
+            robot.turnTo(radians(180), MAX_DRIVING_POWER, 0.2);
+
+            //put specimen over bar
+            linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
+            robot.drive(-20, MAX_DRIVING_POWER, 0.2);
+            robot.linearSlide.setPower(0);
+
+            //put it on bar and let go
+            linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
+            sleep(1000);
+            robot.linearSlide.setPower(0);
+            robot.claw.setPosition(CLAW_OPEN_POSITION);
+
+            //go back to about to grab specimen from wall
+            robot.drive(20, MAX_DRIVING_POWER, 0.2);
+            robot.strafe(-25 + 2 * i, MAX_DRIVING_POWER, 0.2);
+            robot.turnTo(radians(180), MAX_DRIVING_POWER, 0.2);
+
+            if (i != 3)
+                linearSlideMove(LINEAR_SLIDE_SPECIMEN_WALL_POSITION);
+            robot.drive(-10, MAX_DRIVING_POWER, 0.2);
 
 
 
         }
+
+
     }
 
     private void linearSlideMove(int targPos)
     {
-        robot.linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.linearSlide.setTargetPosition(targPos);
+        robot.linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.linearSlide.setPower(LINEAR_SLIDE_POWER);
     }
 

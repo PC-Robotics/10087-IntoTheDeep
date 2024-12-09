@@ -210,7 +210,7 @@ public class PIDRobot
             moveRobot(-strafeController.getOutput(strafeDistance), -driveController.getOutput(driveDistance),yawController.getOutput(heading),power);
 
             // Time to exit?
-            if (driveController.inPosition() && yawController.inPosition()) {
+            if (driveController.inPosition() /*&& yawController.inPosition()*/) {
                 if (holdTimer.time() > holdTime) {
                     break;   // Exit loop if we are in position, and have been there long enough.
                 }

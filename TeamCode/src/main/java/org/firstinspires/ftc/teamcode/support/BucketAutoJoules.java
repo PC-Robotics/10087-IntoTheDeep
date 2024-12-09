@@ -27,7 +27,7 @@ public class BucketAutoJoules extends LinearOpMode
         linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
 
         //Goes to the specimen hanging bar
-        robot.drive(20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(-20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
         //Putting the specimen on the bar
         linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
@@ -35,16 +35,17 @@ public class BucketAutoJoules extends LinearOpMode
         robot.linearSlide.setPower(0);
         robot.claw.setPosition(CLAW_OPEN_POSITION);
 
+        sleep(1000);
         //pull away from bar
-        robot.drive(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
         //positioning above a sample about to grab with rotator
-        robot.strafe(-36, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.drive(30, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.strafe(36, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(-30, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.strafe(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
+        sleep(1000);
         //rotate the robot and intake down
-        robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.wrist.setPosition(WRIST_INTAKE_POSITION);
 
         //intake the thing
@@ -57,7 +58,8 @@ public class BucketAutoJoules extends LinearOpMode
         robot.intake.setPower(-MAX_INTAKE_POWER);
 
         //drive to looking at the bucket
-        robot.drive(20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(-20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.turnTo(radians(-45), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
         //put the sample in the bucket
@@ -67,9 +69,9 @@ public class BucketAutoJoules extends LinearOpMode
         robot.bucket.setPosition(BUCKET_RELEASE_POSITION);
 
         //return to before bucket adventure
-        robot.drive(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         linearSlideMove(LINEAR_SLIDE_STARTING_POSITION);
-        robot.turnTo(radians(-45), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.turnTo(radians(-135), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.linearSlide.setPower(0);
 
         //drive to above next sample
