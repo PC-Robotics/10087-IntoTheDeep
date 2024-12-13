@@ -40,6 +40,7 @@ public class FiveClipAutoJoules extends LinearOpMode
         robot.claw.setPosition(CLAW_OPEN_POSITION);
         sleep(2000);
         linearSlideMove(LINEAR_SLIDE_STARTING_POSITION);
+        sleep(1000);
 
         //get to about to push the blocks into the human player zone
         robot.drive(6, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
@@ -47,9 +48,17 @@ public class FiveClipAutoJoules extends LinearOpMode
         robot.strafe(-33, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.drive(-30, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.strafe(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(-10,MAX_DRIVING_POWER,AUTON_PID_HOLD_TIME);
+        robot.turnTo(Math.PI, 1, AUTON_PID_HOLD_TIME);
+        robot.strafe(-8, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(-12, MAX_DRIVING_POWER,AUTON_PID_HOLD_TIME);
+        robot.claw.setPosition(CLAW_CLOSED_POSITION);
 
 
         //push the blocks into the human player zone
+        //
+        /*
         for (int i = 0; i < 3; i++)
         {
             if (i != 0)
@@ -57,6 +66,8 @@ public class FiveClipAutoJoules extends LinearOpMode
             robot.drive(45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
             robot.drive(-45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         }
+
+         */
 /*
 
         //able to close claw and grab first of four specimens
