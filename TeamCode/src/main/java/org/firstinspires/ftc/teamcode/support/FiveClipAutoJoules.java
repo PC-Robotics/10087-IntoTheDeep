@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name="ClipsAutoJoules", group="Robot")
-public class ClipsAutoJoules extends LinearOpMode
+@Autonomous(name="FiveClipAutoJoules", group="Robot")
+public class FiveClipAutoJoules extends LinearOpMode
 {
     JoulesRobot robot = new JoulesRobot(this);
 
@@ -50,11 +50,13 @@ public class ClipsAutoJoules extends LinearOpMode
 
 
         //push the blocks into the human player zone
-        robot.drive(45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.drive(-45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-
-        robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.drive(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        for (int i = 0; i < 3; i++)
+        {
+            if (i != 0)
+                robot.strafe(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+            robot.drive(45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+            robot.drive(-45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        }
 /*
 
         //able to close claw and grab first of four specimens
@@ -91,7 +93,7 @@ public class ClipsAutoJoules extends LinearOpMode
 
             if (i != 3)
                 linearSlideMove(LINEAR_SLIDE_SPECIMEN_WALL_POSITION);
-            
+
             robot.drive(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
 
