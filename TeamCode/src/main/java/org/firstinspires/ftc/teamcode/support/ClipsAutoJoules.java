@@ -30,7 +30,7 @@ public class ClipsAutoJoules extends LinearOpMode
         linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
 
         //Goes to the specimen hanging bar
-        robot.drive(-29, MAX_DRIVING_POWER, 0.2);
+        robot.drive(-29, MAX_DRIVING_POWER - 0.2, AUTON_PID_HOLD_TIME);
         robot.linearSlide.setPower(0);
 
         //Putting the specimen on the bar
@@ -38,45 +38,46 @@ public class ClipsAutoJoules extends LinearOpMode
         sleep(1000);
         robot.linearSlide.setPower(0);
         robot.claw.setPosition(CLAW_OPEN_POSITION);
-        sleep(1000);
+        sleep(2000);
+        linearSlideMove(LINEAR_SLIDE_STARTING_POSITION);
 
         //get to about to push the blocks into the human player zone
-        robot.drive(5, MAX_DRIVING_POWER, 0.2);
-        robot.strafe(-30, MAX_DRIVING_POWER, 0.2);
-        robot.drive(-20, MAX_DRIVING_POWER, 0.2);
-        robot.strafe(-10, MAX_DRIVING_POWER, 0.2);
+        robot.drive(6, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.linearSlide.setPower(0);
+        robot.strafe(-33, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(-30, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.strafe(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
-        sleep(1000);
 
         //push the blocks into the human player zone
         for (int i = 0; i < 3; i++)
         {
-            robot.strafe(10, MAX_DRIVING_POWER, 0.2);
-            robot.drive(-40, MAX_DRIVING_POWER, 0.2);
-            robot.drive(40, MAX_DRIVING_POWER, 0.2);
-            sleep(1000);
+            if (i != 0)
+                robot.strafe(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+            robot.drive(45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+            robot.drive(-45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         }
-
+/*
 
         //able to close claw and grab first of four specimens
-        robot.drive(10, MAX_DRIVING_POWER, 0.2);
-        robot.strafe(-10, MAX_DRIVING_POWER, 0.2);
+        robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.strafe(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         linearSlideMove(LINEAR_SLIDE_SPECIMEN_WALL_POSITION);
-        robot.drive(-10, MAX_DRIVING_POWER, 0.2);
+        robot.drive(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
         for (int i = 0; i < 4; i++)
         {
             robot.claw.setPosition(CLAW_CLOSED_POSITION);
 
             //pull away from wall with specimen
-            robot.drive(10, MAX_DRIVING_POWER, 0.2);
+            robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
             robot.linearSlide.setPower(0);
-            robot.strafe(-25 + 2 * i, MAX_DRIVING_POWER, 0.2);
-            robot.turnTo(radians(180), MAX_DRIVING_POWER, 0.2);
+            robot.strafe(-25 + 2 * i, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+            robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
             //put specimen over bar
             linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
-            robot.drive(-20, MAX_DRIVING_POWER, 0.2);
+            robot.drive(-20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
             robot.linearSlide.setPower(0);
 
             //put it on bar and let go
@@ -86,19 +87,20 @@ public class ClipsAutoJoules extends LinearOpMode
             robot.claw.setPosition(CLAW_OPEN_POSITION);
 
             //go back to about to grab specimen from wall
-            robot.drive(20, MAX_DRIVING_POWER, 0.2);
-            robot.strafe(-25 + 2 * i, MAX_DRIVING_POWER, 0.2);
-            robot.turnTo(radians(180), MAX_DRIVING_POWER, 0.2);
+            robot.drive(20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+            robot.strafe(-25 + 2 * i, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+            robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
             if (i != 3)
                 linearSlideMove(LINEAR_SLIDE_SPECIMEN_WALL_POSITION);
-            robot.drive(-10, MAX_DRIVING_POWER, 0.2);
+            
+            robot.drive(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
 
 
         }
 
-
+*/
     }
 
     private void linearSlideMove(int targPos)

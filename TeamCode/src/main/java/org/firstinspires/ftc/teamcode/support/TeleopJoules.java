@@ -235,6 +235,8 @@ public class TeleopJoules extends LinearOpMode
         }
     }
 
+
+
     private void updateTelemetryData() {
         telemetry.addData("Subsystem Data ", "-----")
                 .addData("Slide Position: ", robot.linearSlide.getCurrentPosition())
