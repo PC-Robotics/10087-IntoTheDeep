@@ -51,10 +51,12 @@ public class PIDController {
 
         inPosition = (Math.abs(error) < tolerance);
 
+
         if(Math.abs(error) <= deadband)
         {
             output = 0;
         }
+
         else
         {
             // Only begin using integral component when the robot gets close

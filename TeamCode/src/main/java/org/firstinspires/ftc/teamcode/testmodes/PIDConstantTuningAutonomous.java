@@ -43,13 +43,9 @@ public class PIDConstantTuningAutonomous extends LinearOpMode {
         if(opModeIsActive())
         {
 
-            robot.strafe(FLOOR_TILE_INCHES,STRAFE_MAX_AUTO,ServoMotorPosConstants.AUTON_PID_HOLD_TIME);
-            robot.strafe(FLOOR_TILE_INCHES,STRAFE_MAX_AUTO,ServoMotorPosConstants.AUTON_PID_HOLD_TIME);
-            robot.strafe(FLOOR_TILE_INCHES,STRAFE_MAX_AUTO,ServoMotorPosConstants.AUTON_PID_HOLD_TIME);
-
-            robot.turnTo(Math.PI, YAW_MAX_AUTO, ServoMotorPosConstants.AUTON_PID_HOLD_TIME);
-
-            robot.strafe(FLOOR_TILE_INCHES * 2,STRAFE_MAX_AUTO,ServoMotorPosConstants.AUTON_PID_HOLD_TIME);
+            robot.drive(FLOOR_TILE_INCHES*2,STRAFE_MAX_AUTO,ServoMotorPosConstants.AUTON_PID_HOLD_TIME);
+            sleep(3000);
+            robot.drive(FLOOR_TILE_INCHES*-2,STRAFE_MAX_AUTO,ServoMotorPosConstants.AUTON_PID_HOLD_TIME);
 
 
 

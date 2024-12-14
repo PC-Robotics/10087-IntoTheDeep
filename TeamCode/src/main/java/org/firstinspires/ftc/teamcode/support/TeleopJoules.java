@@ -34,6 +34,7 @@ public class TeleopJoules extends LinearOpMode
             driving();
             trolley();
             claw();
+            //hangBar();
 
             updateTelemetryData();
         }
@@ -234,8 +235,32 @@ public class TeleopJoules extends LinearOpMode
             robot.claw.setPosition(ServoMotorPosConstants.CLAW_OPEN_POSITION);
         }
     }
+    /*
+    public void hangBar()
+    {
+        if (gamepad1.dpad_right)
+        {
+            robot.liftWrist.setPosition(ServoMotorPosConstants.LIFT_WRIST_UP_POSITION);
+        }
+        else if (gamepad1.dpad_left)
+        {
+            robot.liftWrist.setPosition(ServoMotorPosConstants.LIFT_WRIST_DOWN_POSITION);
+        }
 
+        if (gamepad1.dpad_down)
+        {
+            robot.lift.setTargetPosition(0);
+            robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.lift.setPower(1);
+        }
+        else
+        {
+            robot.lift.setPower(0);
 
+        }
+    }
+
+*/
 
     private void updateTelemetryData() {
         telemetry.addData("Subsystem Data ", "-----")

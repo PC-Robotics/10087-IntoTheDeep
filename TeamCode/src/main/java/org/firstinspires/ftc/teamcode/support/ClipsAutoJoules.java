@@ -30,6 +30,7 @@ public class ClipsAutoJoules extends LinearOpMode
         linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
 
         //Goes to the specimen hanging bar
+        sleep(150);
         robot.drive(-29, MAX_DRIVING_POWER - 0.2, AUTON_PID_HOLD_TIME);
         robot.linearSlide.setPower(0);
 
@@ -39,23 +40,41 @@ public class ClipsAutoJoules extends LinearOpMode
         robot.linearSlide.setPower(0);
         robot.claw.setPosition(CLAW_OPEN_POSITION);
         sleep(2000);
-        linearSlideMove(LINEAR_SLIDE_STARTING_POSITION);
+        linearSlideMove(0);
 
         //get to about to push the blocks into the human player zone
         robot.drive(6, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.linearSlide.setPower(0);
         robot.strafe(-33, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.drive(-30, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.strafe(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
 
-        //push the blocks into the human player zone
-        robot.drive(45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        //push the block into the human player zone
+        robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.drive(-45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
         robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.drive(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(-17.4, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.claw.setPosition(CLAW_CLOSED_POSITION);
+        sleep(2000);
+
 /*
+        linearSlideMove(50);
+        robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        linearSlideMove(0);
+        robot.strafe(-35, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.turnTo(0, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
+        sleep(180);
+        robot.drive(-15, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
+        robot.claw.setPosition(CLAW_OPEN_POSITION);
+        sleep(2000);
+
+
+
+/*
+
 
         //able to close claw and grab first of four specimens
         robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);

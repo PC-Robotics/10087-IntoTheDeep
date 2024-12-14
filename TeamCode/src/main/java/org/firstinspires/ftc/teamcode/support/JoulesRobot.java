@@ -52,4 +52,13 @@ public class JoulesRobot extends PIDRobot
 
         super.init(true);
     }
+
+    @Override
+    public boolean readSensors()
+    {
+        myOpMode.telemetry.addData("Slide Position:: ",linearSlide.getCurrentPosition());
+
+        return super.readSensors();
+    }
+
 }
