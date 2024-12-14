@@ -31,7 +31,7 @@ public class twothreePointClips extends LinearOpMode
 
         //Goes to the specimen hanging bar
         sleep(150);
-        robot.drive(-29, MAX_DRIVING_POWER - 0.2, AUTON_PID_HOLD_TIME);
+        robot.drive(-29, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.linearSlide.setPower(0);
 
         //Putting the specimen on the bar
@@ -54,9 +54,9 @@ public class twothreePointClips extends LinearOpMode
         linearSlideMove(50);
         robot.drive(10.25, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         linearSlideMove(0);
-        robot.strafe(-48, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.strafe(-50, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.turnTo(0, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION + 100);
+        linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION + 150);
         sleep(1000);
         robot.drive(-20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
@@ -66,7 +66,7 @@ public class twothreePointClips extends LinearOpMode
         //return to parking zone
         linearSlideMove(0);
         robot.drive(23, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.strafe(-40, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.strafe(-60, 1, AUTON_PID_HOLD_TIME);
 
 
 /*

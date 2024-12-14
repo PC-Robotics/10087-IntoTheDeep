@@ -26,7 +26,7 @@ public class ServoMotorPosConstants
     public static final double BUCKET_PICKUP_POSITION = 0.514;
     public static final double BUCKET_RELEASE_POSITION = 0.48;
 
-    public static final double LINEAR_SLIDE_POWER = 0.66;
+    public static final double LINEAR_SLIDE_POWER = 0.85;
     public static final double MAX_INTAKE_POWER = 0.33;
 
     public static final double AUTON_PID_HOLD_TIME = 0.1;
