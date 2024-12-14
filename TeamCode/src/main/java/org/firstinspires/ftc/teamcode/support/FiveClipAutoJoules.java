@@ -5,9 +5,10 @@ package org.firstinspires.ftc.teamcode.support;
 import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.*;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
+@Disabled
 @Autonomous(name="FiveClipAutoJoules", group="Robot")
 public class FiveClipAutoJoules extends LinearOpMode
 {

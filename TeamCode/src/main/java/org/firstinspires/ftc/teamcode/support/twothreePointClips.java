@@ -39,33 +39,33 @@ public class twothreePointClips extends LinearOpMode
         sleep(1000);
         robot.linearSlide.setPower(0);
         robot.claw.setPosition(CLAW_OPEN_POSITION);
-        sleep(2000);
+        sleep(1400);
         linearSlideMove(0);
 
         //going to wall to grab spec #2
-        robot.drive(20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.strafe(-35, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(15, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.strafe(-45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.drive(-8, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(-14.4, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.claw.setPosition(CLAW_CLOSED_POSITION);
-        sleep(2000);
+        sleep(1400);
 
         //go back to bar to put spec #2 on
         linearSlideMove(50);
-        robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(10.25, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         linearSlideMove(0);
-        robot.strafe(-35, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.strafe(-48, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.turnTo(0, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
-        sleep(180);
-        robot.drive(-15, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION + 100);
+        sleep(1000);
+        robot.drive(-20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
         robot.claw.setPosition(CLAW_OPEN_POSITION);
-        sleep(2000);
+        sleep(1400);
 
         //return to parking zone
         linearSlideMove(0);
-        robot.drive(25, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(23, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.strafe(-40, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
 
