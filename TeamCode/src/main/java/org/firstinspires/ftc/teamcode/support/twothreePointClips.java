@@ -56,7 +56,7 @@ public class twothreePointClips extends LinearOpMode
         linearSlideMove(0);
         robot.strafe(-50, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.turnTo(0, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION + 150);
+        linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION + 250);
         sleep(1000);
         robot.drive(-20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
