@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @Autonomous(name="ClipsAutoJoules", group="Robot")
 public class ClipsAutoJoules extends LinearOpMode
 {
-    JoulesRobot robot = new JoulesRobot(this);
+    JoulesRobot robot = new JoulesRobot(this, 0);
 
     public void runOpMode()
     {

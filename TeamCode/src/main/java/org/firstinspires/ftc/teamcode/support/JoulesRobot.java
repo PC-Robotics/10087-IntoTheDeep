@@ -16,14 +16,21 @@ public class JoulesRobot extends PIDRobot
     public Servo left = null;
     public Servo claw = null;
     public Servo bucket = null;
+    private int gamePhase = 0;
 
-    public JoulesRobot(LinearOpMode opMode) {super(opMode, false);}
+    public JoulesRobot(LinearOpMode opMode, int gamePhase)
+    {
+        super(opMode, false);
+        this.gamePhase = gamePhase;
+    }
 
     public void init() {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
         linearSlide = myOpMode.hardwareMap.get(DcMotor.class, "linearSlide");
         linearSlide.setDirection(DcMotor.Direction.REVERSE);
-        linearSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //only reset encoder if during start of auto.
+        if (gamePhase == 0)
+            linearSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         linearSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         linearSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name="TeleopJoules", group="Robot")
 public class TeleopJoules extends LinearOpMode
 {
-    JoulesRobot robot = new JoulesRobot(this);
+    JoulesRobot robot = new JoulesRobot(this, 1);
     boolean firstTime = true;
     public void runOpMode() {
         robot.init();

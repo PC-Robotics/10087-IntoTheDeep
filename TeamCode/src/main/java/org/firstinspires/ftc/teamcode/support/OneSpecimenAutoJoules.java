@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @Autonomous(name="OneSpecimenAutoJoules", group="Robot")
 public class OneSpecimenAutoJoules extends LinearOpMode
 {
-    JoulesRobot robot = new JoulesRobot(this);
+    JoulesRobot robot = new JoulesRobot(this, 0);
 
     public void runOpMode()
     {
