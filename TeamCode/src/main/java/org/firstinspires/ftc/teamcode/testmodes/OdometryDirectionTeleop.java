@@ -67,6 +67,8 @@ public class OdometryDirectionTeleop extends LinearOpMode {
             }
 
             robot.moveRobot(x,y,turn,1);
+
+            telemetry.update();
         }
     }
 }

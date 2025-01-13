@@ -26,6 +26,8 @@ import static org.firstinspires.ftc.teamcode.support.OdometryConstants.YAW_DEADB
 import static org.firstinspires.ftc.teamcode.support.OdometryConstants.YAW_MAX_AUTO;
 import static org.firstinspires.ftc.teamcode.support.OdometryConstants.YAW_TOLERANCE;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -95,19 +97,21 @@ public class PIDRobot
      */
     public void init(boolean showTelemetry)
     {
+
+
         // Initialize the drive train motors
         // Currently running them with encoders to use the PID controls and odometry
-        frontRight = setupMotor("frontRight", DcMotor.Direction.REVERSE, false);
-        frontLeft = setupMotor("frontLeft",DcMotor.Direction.FORWARD,false);
-        backRight = setupMotor("backRight",DcMotor.Direction.REVERSE, false);
-        backLeft = setupMotor("backLeft",DcMotor.Direction.FORWARD, false);
+        frontRight = setupMotor("frontRight", DcMotor.Direction.FORWARD, true);
+        frontLeft = setupMotor("frontLeft",DcMotor.Direction.REVERSE,true);
+        backRight = setupMotor("backRight",DcMotor.Direction.FORWARD, true);
+        backLeft = setupMotor("backLeft",DcMotor.Direction.REVERSE, true);
 
         // Initialize the IMU
         imu = myOpMode.hardwareMap.get(IMU.class,"imu");
 
         // Initialize the odometry wheels
-        driveEncoder = myOpMode.hardwareMap.get(DcMotor.class,"axial");
-        strafeEncoder = myOpMode.hardwareMap.get(DcMotor.class,"intake");
+        driveEncoder = myOpMode.hardwareMap.get(DcMotor.class,"drive");
+        strafeEncoder = myOpMode.hardwareMap.get(DcMotor.class,"strafe");
 
         /*
          * Copied from another source (Simpflied Odometry by gearsincorg)
@@ -123,8 +127,8 @@ public class PIDRobot
         // Initialize the IMU. Remember to check how this is orientated on any new robots
         // TODO: When copying this code into a new robot, make sure the orientation is set correctly
         RevHubOrientationOnRobot orientationOnRobot =
-                new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
-                        RevHubOrientationOnRobot.UsbFacingDirection.UP);
+                new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                        RevHubOrientationOnRobot.UsbFacingDirection.LEFT);
         imu.initialize(new IMU.Parameters(orientationOnRobot));
 
         // Zero out all odometry
@@ -214,19 +218,21 @@ public class PIDRobot
                 holdTimer.reset();
             }
             myOpMode.sleep(10);
+
+            myOpMode.telemetry.update();
         }
         stopRobot();
     }
 
     /**
      * Strafe in the lateral (left/right) direction, maintain the current heading and don't drift fwd/bwd
-     * @param distanceInches  Distance to travel.  +ve = left, -ve = right.
+     * @param distanceInches  Distance to travel.  -ve = left, +ve = right.
      * @param power Maximum power to apply.  This number should always be positive.
      * @param holdTime Minimum time (sec) required to hold the final position.  0 = no hold.
      */
     public void strafe(double distanceInches, double power, double holdTime) {
         resetOdometry();
-
+        distanceInches *= -1;
         driveController.reset(0.0);             //  Maintain zero drive drift
         strafeController.reset(distanceInches, power);  // Achieve desired Strafe distance
         yawController.reset();                          // Maintain last turn angle
@@ -246,6 +252,8 @@ public class PIDRobot
                 holdTimer.reset();
             }
             myOpMode.sleep(10);
+
+            myOpMode.telemetry.update();
         }
         stopRobot();
     }
@@ -259,7 +267,7 @@ public class PIDRobot
      */
     public void turnTo(double headingRad, double power, double holdTime) {
 
-        yawController.reset(headingRad, power);
+        yawController.reset(headingRad, power);     // KD .21    KI  .08  KP 1.55
         while (myOpMode.opModeIsActive() && readSensors()) {
 
             // implement desired axis powers
@@ -274,8 +282,11 @@ public class PIDRobot
                 holdTimer.reset();
             }
             myOpMode.sleep(10);
+            myOpMode.telemetry.update();
         }
         stopRobot();
+
+        myOpMode.telemetry.update();
     }
 
 
@@ -319,14 +330,14 @@ public class PIDRobot
         bR = power * sin / max - turn;
 
         // If the power + |turn| is above max power, need to scale everything down
-
-        if ((power + Math.abs(turn)) > maxPower)
+        double largest = power + Math.abs(turn);
+        if (largest > maxPower)
         {
             // This set of commands sets the maximum value of any one motor power to 1
-            fL /= (power + turn);
-            fR /= (power + turn);
-            bL /= (power + turn);
-            bR /= (power + turn);
+            fL /= largest;
+            fR /= largest;
+            bL /= largest;
+            bR /= largest;
 
             // This set of commands then scales it based on the max power input
             // Typically in autonomous modes this value is less than 1 in case something goes wrong
@@ -350,6 +361,12 @@ public class PIDRobot
         moveRobot(0,0,0,1);
     }
 
+    public void setPowers(double FLpower, double FRpower, double BLpower, double BRpower) {
+        frontLeft.setPower(FLpower);
+        frontRight.setPower(FRpower);
+        backLeft.setPower(BLpower);
+        backRight.setPower(BRpower);
+    }
     /**
      * Set odometry counts and distances to zero.
      */

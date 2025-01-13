@@ -5,10 +5,14 @@ import static org.firstinspires.ftc.teamcode.support.OdometryConstants.FLOOR_TIL
 import static org.firstinspires.ftc.teamcode.support.OdometryConstants.STRAFE_MAX_AUTO;
 import static org.firstinspires.ftc.teamcode.support.OdometryConstants.YAW_MAX_AUTO;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.support.JoulesRobot;
 import org.firstinspires.ftc.teamcode.support.PIDRobot;
+import org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants;
 
 /**
  * The purpose of this Autonomous OP Mode is to test that the PID constants for drive, strafe, and turn
@@ -19,24 +23,41 @@ import org.firstinspires.ftc.teamcode.support.PIDRobot;
 
 @Autonomous(name="PID Value Calculation",group="Testing")
 public class PIDConstantTuningAutonomous extends LinearOpMode {
-    private PIDRobot robot = new PIDRobot(this,false);
+    private PIDRobot robot = new PIDRobot(this, false);
 
     @Override
     public void runOpMode()
     {
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         robot.init(true);
-
         telemetry.addData(">","Touch Play to run Auto");
         telemetry.update();
 
         waitForStart();
         robot.resetHeading();
 
+        robot.readSensors();
+
+        telemetry.update();
+
         if(opModeIsActive())
         {
 
+            robot.drive(FLOOR_TILE_INCHES*2,STRAFE_MAX_AUTO,ServoMotorPosConstants.AUTON_PID_HOLD_TIME);
+            sleep(3000);
+            robot.drive(FLOOR_TILE_INCHES*-2,STRAFE_MAX_AUTO,ServoMotorPosConstants.AUTON_PID_HOLD_TIME);
+
+
+
+
+
+
+
+
             // Test driving and strafing
-            robot.drive(FLOOR_TILE_INCHES,DRIVE_MAX_AUTO,0.25);
+            //robot.drive(2*FLOOR_TILE_INCHES,DRIVE_MAX_AUTO,0.25);
+
+            /*
             robot.strafe(FLOOR_TILE_INCHES,STRAFE_MAX_AUTO,0.25);
             robot.drive(-FLOOR_TILE_INCHES,DRIVE_MAX_AUTO,0.25);
             robot.strafe(-FLOOR_TILE_INCHES,STRAFE_MAX_AUTO,0.25);
@@ -63,7 +84,7 @@ public class PIDConstantTuningAutonomous extends LinearOpMode {
             robot.turnTo(0,YAW_MAX_AUTO, 0.25);
             robot.turnTo(3* Math.PI /2,YAW_MAX_AUTO,0.25);
             robot.turnTo(0,YAW_MAX_AUTO,0.25);
-
+            */
         }
     }
 }

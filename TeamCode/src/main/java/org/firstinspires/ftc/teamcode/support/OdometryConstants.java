@@ -2,12 +2,12 @@ package org.firstinspires.ftc.teamcode.support;
 
 
 public class OdometryConstants {
-    public static final double ODOM_INCHES_PER_COUNT = 0.002969;    // GoBilda Odometry Pod
+    public static final double ODOM_INCHES_PER_COUNT = 0.001978992598;    // GoBilda Odometry Pod       (old number 0.002969)
     public static final double FLOOR_TILE_INCHES = 24;
 
     //TODO: Check that these booleans are correct using simple teleop process with output
 
-    public static final boolean INVERT_DRIVE_ODOMETRY = false;       // When driving FORWARD, odometry value must INCREASE. If not, flip this
+    public static final boolean INVERT_DRIVE_ODOMETRY = true;       // When driving FORWARD, odometry value must INCREASE. If not, flip this
     public static final boolean INVERT_STRAFE_ODOMETRY = true;      // When strafing to the LEFT, the odometry value must INCREASE. If not, flip this
 
     //TODO: Consider these values and if they need to be changed. These values are the defaults from the example code
