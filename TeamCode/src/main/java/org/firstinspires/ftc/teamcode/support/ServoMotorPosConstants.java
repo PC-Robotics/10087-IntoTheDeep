@@ -23,6 +23,7 @@ public class ServoMotorPosConstants
     public static final double WRIST_INTAKE_POSITION = 0.70;
     public static final double WRIST_RELEASE_POSITION = 0.00;
     public static final double WRIST_DRIVING_POSITION = 0.22;
+
     public static final double BUCKET_PICKUP_POSITION = 0.514;
     public static final double BUCKET_RELEASE_POSITION = 0.48;
 

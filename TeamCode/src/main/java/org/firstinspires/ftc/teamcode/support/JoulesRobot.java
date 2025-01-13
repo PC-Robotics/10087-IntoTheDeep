@@ -20,7 +20,7 @@ public class JoulesRobot extends PIDRobot
 
     public JoulesRobot(LinearOpMode opMode, int gamePhase)
     {
-        super(opMode, false);
+        super(opMode, true);
         this.gamePhase = gamePhase;
     }
 
