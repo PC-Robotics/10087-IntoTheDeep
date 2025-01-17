@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @Autonomous(name="BucketAutoJoules", group="Robot")
 public class BucketAutoJoules extends LinearOpMode
 {
-    JoulesRobot robot = new JoulesRobot(this);
+    JoulesRobot robot = new JoulesRobot(this, 0, false);
 
     public void runOpMode()
     {

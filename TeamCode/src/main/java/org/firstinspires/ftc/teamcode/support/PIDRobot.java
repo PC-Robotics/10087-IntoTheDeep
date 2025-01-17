@@ -56,7 +56,6 @@ public class PIDRobot
     private IMU imu = null;
 
     private ElapsedTime holdTimer = new ElapsedTime();
-    private ElapsedTime totalTime = new ElapsedTime();
 
     // Public Members
     public double driveDistance     = 0; // scaled axial distance (+ = forward)
@@ -111,8 +110,8 @@ public class PIDRobot
         imu = myOpMode.hardwareMap.get(IMU.class,"imu");
 
         // Initialize the odometry wheels
-        driveEncoder = myOpMode.hardwareMap.get(DcMotor.class,"drive");
-        strafeEncoder = myOpMode.hardwareMap.get(DcMotor.class,"strafe");
+        driveEncoder = myOpMode.hardwareMap.get(DcMotor.class,"par");
+        strafeEncoder = myOpMode.hardwareMap.get(DcMotor.class,"perp");
 
         /*
          * Copied from another source (Simpflied Odometry by gearsincorg)
@@ -197,22 +196,21 @@ public class PIDRobot
      * @param power Maximum power to apply.  This number should always be positive.
      * @param holdTime Minimum time (sec) required to hold the final position.  0 = no hold.
      */
-    public void drive(double distanceInches, double power, double holdTime, double maximumTime) {
+    public void drive(double distanceInches, double power, double holdTime) {
         resetOdometry();
 
         driveController.reset(distanceInches, power);   // achieve desired drive distance
         strafeController.reset(0);              // Maintain zero strafe drift
         yawController.reset();                          // Maintain last turn heading
         holdTimer.reset();
-        totalTime.reset();
 
-        while (myOpMode.opModeIsActive() && totalTime.seconds() < maximumTime && readSensors()){
+        while (myOpMode.opModeIsActive() && readSensors()){
 
             // implement desired axis powers
-            move(-strafeController.getOutput(strafeDistance), -driveController.getOutput(driveDistance),yawController.getOutput(heading),power);
+            moveRobot(-strafeController.getOutput(strafeDistance), -driveController.getOutput(driveDistance),yawController.getOutput(heading),power);
 
             // Time to exit?
-            if (driveController.inPosition() && yawController.inPosition() && strafeController.inPosition()) {
+            if (driveController.inPosition() && yawController.inPosition()) {
                 if (holdTimer.time() > holdTime) {
                     break;   // Exit loop if we are in position, and have been there long enough.
                 }
@@ -232,22 +230,21 @@ public class PIDRobot
      * @param power Maximum power to apply.  This number should always be positive.
      * @param holdTime Minimum time (sec) required to hold the final position.  0 = no hold.
      */
-    public void strafe(double distanceInches, double power, double holdTime, double maximumTime) {
+    public void strafe(double distanceInches, double power, double holdTime) {
         resetOdometry();
         distanceInches *= -1;
         driveController.reset(0.0);             //  Maintain zero drive drift
         strafeController.reset(distanceInches, power);  // Achieve desired Strafe distance
         yawController.reset();                          // Maintain last turn angle
         holdTimer.reset();
-        totalTime.reset();
 
-        while (myOpMode.opModeIsActive() && totalTime.seconds() < maximumTime && readSensors()){
+        while (myOpMode.opModeIsActive() && readSensors()){
 
             // implement desired axis powers
-            move(-strafeController.getOutput(strafeDistance), -driveController.getOutput(driveDistance),yawController.getOutput(heading),power);
+            moveRobot(-strafeController.getOutput(strafeDistance), -driveController.getOutput(driveDistance),yawController.getOutput(heading),power);
 
             // Time to exit?
-            if (strafeController.inPosition() && yawController.inPosition() && driveController.inPosition()) {
+            if (strafeController.inPosition() && yawController.inPosition()) {
                 if (holdTimer.time() > holdTime) {
                     break;   // Exit loop if we are in position, and have been there long enough.
                 }
@@ -268,15 +265,13 @@ public class PIDRobot
      * @param power Maximum power to apply.  This number should always be positive.
      * @param holdTime Minimum time (sec) required to hold the final position.  0 = no hold.
      */
-    public void turnTo(double headingRad, double power, double holdTime, double maximumTime) {
-        yawController.reset(headingRad, power);
-        holdTimer.reset();
-        totalTime.reset();
-        // KD .21    KI  .08  KP 1.55
-        while (myOpMode.opModeIsActive() && totalTime.seconds() < maximumTime && readSensors()) {
+    public void turnTo(double headingRad, double power, double holdTime) {
+
+        yawController.reset(headingRad, power);     // KD .21    KI  .08  KP 1.55
+        while (myOpMode.opModeIsActive() && readSensors()) {
 
             // implement desired axis powers
-            move(0, 0, yawController.getOutput(heading),power);
+            moveRobot(0, 0, yawController.getOutput(heading),power);
 
             // Time to exit?
             if (yawController.inPosition()) {
@@ -296,15 +291,6 @@ public class PIDRobot
 
 
     //  ########################  Low level control functions.  ###############################
-
-    public void move(double x, double y, double turn, double maxPower) {
-        double normalize_to_one = Math.max(1, Math.abs(x) + Math.abs(y) + Math.abs(turn));
-
-        frontLeft.setPower((y + x + turn) / normalize_to_one * maxPower);
-        frontRight.setPower((y - x - turn) / normalize_to_one * maxPower);
-        backLeft.setPower((y - x + turn) / normalize_to_one * maxPower);
-        backRight.setPower((y + x - turn) / normalize_to_one * maxPower);
-    }
 
     /**
      * Drive the wheel motors to obtain the requested axes motions
@@ -328,7 +314,7 @@ public class PIDRobot
         // If fieldCentric controls, adjust the angle based on the robot's orientation
         // Otherwise, fieldCentric = 0 and the angle is based only on the input
         // theta is the angle the left stick is pressed / you want the robot to move
-        theta = Math.atan2(y, x) + fieldCentric * rawHeading;
+        theta = Math.atan2(y, x) + fieldCentric * (rawHeading+Math.PI);
         power = Math.hypot(x, y);
 
         // Values are offset by PI / 4 because of mecanum wheels

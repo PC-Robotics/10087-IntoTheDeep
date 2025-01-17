@@ -3,13 +3,15 @@ package org.firstinspires.ftc.teamcode.support;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+@Disabled
 @Autonomous(name="OneSpecimenAutoJoules", group="Robot")
 public class OneSpecimenAutoJoules extends LinearOpMode
 {
-    JoulesRobot robot = new JoulesRobot(this);
+    JoulesRobot robot = new JoulesRobot(this, 0, false);
 
     public void runOpMode()
     {
