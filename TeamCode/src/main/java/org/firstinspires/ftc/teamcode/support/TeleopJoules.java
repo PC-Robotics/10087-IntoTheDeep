@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name="TeleopJoules", group="Robot")
 public class TeleopJoules extends LinearOpMode
 {
-    JoulesRobot robot = new JoulesRobot(this, 1);
+    JoulesRobot robot = new JoulesRobot(this, 1, true);
     boolean firstTime = true;
     public void runOpMode() {
         robot.init();
@@ -25,7 +25,8 @@ public class TeleopJoules extends LinearOpMode
                 onFirstRun();
                 firstTime = false;
             }
-
+            robot.resetHeading();
+            robot.readSensors();
             manualLinSlideMove();
             //slidesPresetHeights();
             bucketTilts();
@@ -34,6 +35,10 @@ public class TeleopJoules extends LinearOpMode
             driving();
             trolley();
             claw();
+            resetHeading();
+
+
+
             //hangBar();
 
             updateTelemetryData();
@@ -69,6 +74,11 @@ public class TeleopJoules extends LinearOpMode
         robot.linearSlide.setPower(0);
     }
 
+    public void resetHeading() {
+        if (gamepad1.options) {
+            robot.resetHeading();
+        }
+    }
     public void manualLinSlideMove()
     {
         if (Math.abs(gamepad2.right_stick_y) > ServoMotorPosConstants.DEADZONE_THRESHOLD)

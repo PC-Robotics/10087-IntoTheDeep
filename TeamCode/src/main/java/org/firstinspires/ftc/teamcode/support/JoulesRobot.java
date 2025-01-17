@@ -18,9 +18,9 @@ public class JoulesRobot extends PIDRobot
     public Servo bucket = null;
     private int gamePhase = 0;
 
-    public JoulesRobot(LinearOpMode opMode, int gamePhase)
+    public JoulesRobot(LinearOpMode opMode, int gamePhase, boolean isFieldCentric)
     {
-        super(opMode, true);
+        super(opMode, isFieldCentric);
         this.gamePhase = gamePhase;
     }
 

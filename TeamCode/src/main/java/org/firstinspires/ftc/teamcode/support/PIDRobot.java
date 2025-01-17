@@ -314,7 +314,7 @@ public class PIDRobot
         // If fieldCentric controls, adjust the angle based on the robot's orientation
         // Otherwise, fieldCentric = 0 and the angle is based only on the input
         // theta is the angle the left stick is pressed / you want the robot to move
-        theta = Math.atan2(y, x) + fieldCentric * rawHeading;
+        theta = Math.atan2(y, x) + fieldCentric * (rawHeading+Math.PI);
         power = Math.hypot(x, y);
 
         // Values are offset by PI / 4 because of mecanum wheels
