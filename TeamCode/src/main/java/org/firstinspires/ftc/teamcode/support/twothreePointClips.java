@@ -7,14 +7,16 @@ import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.*;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="twothreePointClips", group="Robot")
 public class twothreePointClips extends LinearOpMode
 {
-    JoulesRobot robot = new JoulesRobot(this, 0);
+    JoulesRobot robot = new JoulesRobot(this, 0, false);
 
     public void runOpMode()
     {
+        ElapsedTime timer = new ElapsedTime();
         robot.init();
         robot.claw.setPosition(CLAW_OPEN_POSITION);
         sleep(1000);
