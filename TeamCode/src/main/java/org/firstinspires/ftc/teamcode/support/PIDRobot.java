@@ -76,7 +76,7 @@ public class PIDRobot
     private double turnRate         = 0; // Latest Robot Turn Rate from IMU
     private boolean showTelemetry   = false;
 
-    private int fieldCentric        = 0;
+    private int fieldCentric = 0;
 
     public PIDRobot (LinearOpMode opMode, boolean isFieldCentric)
     {

@@ -100,7 +100,7 @@ public class TeleopJoules extends LinearOpMode
         }
         else
         {
-            robot.linearSlide.setPower(0.1);
+            robot.linearSlide.setPower(0);
         }
     }
     
@@ -258,19 +258,13 @@ public class TeleopJoules extends LinearOpMode
         }
 
 
-        for (int i = 0; i < 30; i++)
+
+        if (gamepad1.dpad_down)
         {
-            if (gamepad1.dpad_down && i == 29)
-            {
-                robot.winch.setTargetPosition(0);
-                robot.winch.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.winch.setPower(1);
-            }
-            else
-            {
-                break;
-            }
+            robot.winch.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.winch.setPower(1);
         }
+
     }
 */
     private void updateTelemetryData() {
