@@ -25,7 +25,14 @@ public class fourSampleHighBucket extends LinearOpMode
 
         robot.linearSlideMove(LINEAR_SLIDE_HIGHEST_POSITION);
 
-        robot.drive(24, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.moveToPointRelative(12, 18, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.linearSlideMove(LINEAR_SLIDE_HIGHEST_POSITION);
+        robot.turnTo(Math.toRadians(Math.PI / 4), 0.5, AUTON_PID_HOLD_TIME);
+        robot.drive(-5, 0.5, AUTON_PID_HOLD_TIME);
+        robot.bucket.setPosition(BUCKET_RELEASE_POSITION);
+        sleep(2500);
+        robot.bucket.setPosition(BUCKET_PICKUP_POSITION);
+        robot.linearSlideMove(LINEAR_SLIDE_STARTING_POSITION);
     }
 
     private double radians(double degrees)

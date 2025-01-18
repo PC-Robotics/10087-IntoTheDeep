@@ -15,11 +15,11 @@ public class OdometryConstants {
     // Constants that set limits on the closed loop drive train
     // Values can be altered based on system
     public static final double DRIVE_ACCEL         = 2.0;     // Acceleration limit.  Percent Power change per second.  1.0 = 0-100% power in 1 sec.
-    public static final double DRIVE_TOLERANCE     = 0.5;     // Controller is is "inPosition" if position error is < +/- this amount
+    public static final double DRIVE_TOLERANCE     = 0.75;     // Controller is is "inPosition" if position error is < +/- this amount
     public static final double DRIVE_MAX_AUTO      = 0.8;     // "default" Maximum Axial power limit during autonomous
 
     public static final double STRAFE_ACCEL        = 1.5;     // Acceleration limit.  Percent Power change per second.  1.0 = 0-100% power in 1 sec.
-    public static final double STRAFE_TOLERANCE    = 0.5;     // Controller is is "inPosition" if position error is < +/- this amount
+    public static final double STRAFE_TOLERANCE    = 0.75;     // Controller is is "inPosition" if position error is < +/- this amount
     public static final double STRAFE_MAX_AUTO     = 0.8;     // "default" Maximum Lateral power limit during autonomous
 
     // Note that these yaw values are using radians, which is why the scale values are smaller

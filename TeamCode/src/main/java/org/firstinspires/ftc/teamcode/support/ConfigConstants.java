@@ -20,7 +20,7 @@ public class ConfigConstants
 
 
     public static double YAW_KP = 2.15;
-    public static double YAW_KI = 0.63;
+    public static double YAW_KI = 0.73;
     public static double YAW_KD = 0.31;
 
     public static String TESTED_SERVO = "wrist";

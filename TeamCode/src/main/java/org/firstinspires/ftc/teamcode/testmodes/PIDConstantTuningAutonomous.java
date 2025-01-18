@@ -44,7 +44,7 @@ public class PIDConstantTuningAutonomous extends LinearOpMode {
         if(opModeIsActive())
         {
 
-            robot.drive(2*FLOOR_TILE_INCHES,DRIVE_MAX_AUTO,1);
+            robot.moveToPointRelative(24, 24, DRIVE_MAX_AUTO, 1);
 
 
 

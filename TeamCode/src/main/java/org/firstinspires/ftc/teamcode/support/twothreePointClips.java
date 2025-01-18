@@ -40,19 +40,19 @@ public class twothreePointClips extends LinearOpMode
         robot.clipSpecimenAction();
 
         //going to wall to grab spec #2
-        robot.drive(15, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.strafe(45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(15, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.0);
+        robot.strafe(45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 2.5);
+        robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.0);
         robot.drive(-19, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.5);
         robot.claw.setPosition(CLAW_CLOSED_POSITION);
         sleep(1400);
 
         //go back to bar to put spec #2 on
         linearSlideMove(50);
-        robot.drive(10.25, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(10.25, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.0);
         linearSlideMove(0);
-        robot.strafe(50, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.turnTo(0, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.strafe(50, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 3.0);
+        robot.turnTo(0, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.5);
 
         linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION + 250);
         sleep(1000);
@@ -60,8 +60,8 @@ public class twothreePointClips extends LinearOpMode
 
         robot.clipSpecimenAction();
 
-        robot.drive(23, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.strafe(60, 1, AUTON_PID_HOLD_TIME);
+        robot.drive(23, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 2.0);
+        robot.strafe(60, 1, AUTON_PID_HOLD_TIME, 2.5);
 
 
 /*

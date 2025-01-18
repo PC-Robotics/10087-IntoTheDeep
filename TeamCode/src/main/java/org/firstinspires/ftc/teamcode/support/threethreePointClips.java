@@ -8,6 +8,7 @@ import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.CLAW
 import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.LINEAR_SLIDE_POWER;
 import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.LINEAR_SLIDE_SPECIMEN_LOWER_POSITION;
 import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.LINEAR_SLIDE_SPECIMEN_UPPER_POSITION;
+import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.LINEAR_SLIDE_STARTING_POSITION;
 import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.MAX_DRIVING_POWER;
 import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.WRIST_DRIVING_POSITION;
 
@@ -44,6 +45,7 @@ public class threethreePointClips extends LinearOpMode
         robot.drive(-31, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.35);
         robot.linearSlide.setPower(0);
 
+        // clip specimen #1
         robot.linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
         robot.myOpMode.sleep(400);
         robot.linearSlide.setPower(0);
@@ -51,34 +53,38 @@ public class threethreePointClips extends LinearOpMode
         robot.myOpMode.sleep(1300);
         robot.linearSlideMove(0);
 
-        //going to wall to grab spec #2
-        robot.drive(15, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.strafe(45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+
+        // push field spec #1
+        robot.moveToPointRelative(15, 32, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+
+        robot.drive(-34, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.drive(-19, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.5);
+        robot.strafe(-11, 0.4, AUTON_PID_HOLD_TIME);
+        robot.moveToPointRelative(-40, -5, MAX_DRIVING_POWER, 0.7, 1.5);
+        robot.strafe(10, 0.5, 0.5);
+        robot.drive(-13, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 0.4);
+
         robot.claw.setPosition(CLAW_CLOSED_POSITION);
         sleep(1200);
 
         //go back to bar to put spec #2 on
-        robot.linearSlideMove(50);
-        robot.drive(10.25, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.linearSlideMove(0);
-        robot.strafe(50, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.moveToPointRelative(22.25, 50, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.turnTo(0, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
 
         robot.linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION + 250);
         sleep(1000);
-        robot.drive(-22, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.3);
+        robot.drive(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 0.6);
 
         robot.linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
         robot.myOpMode.sleep(500);
         robot.linearSlide.setPower(0);
         robot.claw.setPosition(CLAW_OPEN_POSITION);
         robot.myOpMode.sleep(1300);
-        robot.linearSlideMove(0);
+        robot.linearSlideMove(LINEAR_SLIDE_STARTING_POSITION);
 
-        robot.drive(23, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.strafe(60, 1, AUTON_PID_HOLD_TIME);
+        robot.moveToPointRelative(23, 60, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+//        robot.drive(23, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+//        robot.strafe(60, 1, AUTON_PID_HOLD_TIME);
 
 
 /*

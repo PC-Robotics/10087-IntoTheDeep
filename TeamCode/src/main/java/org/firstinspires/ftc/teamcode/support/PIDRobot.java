@@ -319,6 +319,96 @@ public class PIDRobot
         stopRobot();
     }
 
+    public void moveToPointRelative(double distanceDriveInches, double distanceStrafeInches, double power, double holdTime) {
+        moveToPointRelative(distanceDriveInches, distanceStrafeInches, power, holdTime, Double.POSITIVE_INFINITY);
+    }
+    /**
+     * Drive in the axial (forward/reverse) direction, maintain the current heading and don't drift sideways
+     * @param distanceInches  Distance to travel.  +ve = forward, -ve = reverse.
+     * @param power Maximum power to apply.  This number should always be positive.
+     * @param holdTime Minimum time (sec) required to hold the final position.  0 = no hold.
+     */
+    public void moveToPointRelative(double distanceDriveInches, double distanceStrafeInches, double power, double holdTime, double timeout) {
+        resetOdometry();
+
+        driveController.reset(distanceDriveInches, power);   // achieve desired drive distance
+        strafeController.reset(distanceStrafeInches, power);              // Maintain zero strafe drift
+        yawController.reset();                          // Maintain last turn heading
+        holdTimer.reset();
+        moveTimer.reset();
+
+        while (myOpMode.opModeIsActive() && readSensors() && moveTimer.seconds() < timeout){
+
+            // implement desired axis powers
+            moveFixed(strafeController.getOutput(strafeDistance), -driveController.getOutput(driveDistance),yawController.getOutput(heading) ,power);
+
+            // Time to exit?
+            if (driveController.inPosition() && yawController.inPosition() && strafeController.inPosition()) {
+                if (holdTimer.seconds() > holdTime) {
+                    break;   // Exit loop if we are in position, and have been there long enough.
+                }
+            } else {
+                holdTimer.reset();
+            }
+            myOpMode.sleep(10);
+
+            myOpMode.telemetry.clearAll();
+            myOpMode.telemetry.addData("Drive Error", driveController.lastError);
+            myOpMode.telemetry.addData("Drive Output", driveController.lastOutput);
+            myOpMode.telemetry.addData("Strafe Error", strafeController.lastError);
+            myOpMode.telemetry.addData("Strafe Output", strafeController.lastOutput);
+            myOpMode.telemetry.addData("Yaw Error", yawController.lastError);
+            myOpMode.telemetry.addData("Yaw Output", yawController.lastOutput);
+            myOpMode.telemetry.update();
+        }
+        stopRobot();
+    }
+
+    public void moveToPoseRelative(double distanceDriveInches, double distanceStrafeInches, double targetHeadingRadians, double power, double holdTime) {
+        moveToPoseRelative(distanceDriveInches, distanceStrafeInches, targetHeadingRadians, power, holdTime, Double.POSITIVE_INFINITY);
+    }
+    /**
+     * Drive in the axial (forward/reverse) direction, maintain the current heading and don't drift sideways
+     * @param distanceInches  Distance to travel.  +ve = forward, -ve = reverse.
+     * @param power Maximum power to apply.  This number should always be positive.
+     * @param holdTime Minimum time (sec) required to hold the final position.  0 = no hold.
+     */
+    public void moveToPoseRelative(double distanceDriveInches, double distanceStrafeInches, double targetHeadingRadians, double power, double holdTime, double timeout) {
+        resetOdometry();
+
+        driveController.reset(distanceDriveInches, power);   // achieve desired drive distance
+        strafeController.reset(distanceStrafeInches, power);              // Maintain zero strafe drift
+        yawController.reset(targetHeadingRadians, power);                          // Maintain last turn heading
+        holdTimer.reset();
+        moveTimer.reset();
+
+        while (myOpMode.opModeIsActive() && readSensors() && moveTimer.seconds() < timeout){
+
+            // implement desired axis powers
+            moveFixed(strafeController.getOutput(strafeDistance), -driveController.getOutput(driveDistance),yawController.getOutput(heading) ,power);
+
+            // Time to exit?
+            if (driveController.inPosition() && yawController.inPosition() && strafeController.inPosition()) {
+                if (holdTimer.seconds() > holdTime) {
+                    break;   // Exit loop if we are in position, and have been there long enough.
+                }
+            } else {
+                holdTimer.reset();
+            }
+            myOpMode.sleep(10);
+
+            myOpMode.telemetry.clearAll();
+            myOpMode.telemetry.addData("Drive Error", driveController.lastError);
+            myOpMode.telemetry.addData("Drive Output", driveController.lastOutput);
+            myOpMode.telemetry.addData("Strafe Error", strafeController.lastError);
+            myOpMode.telemetry.addData("Strafe Output", strafeController.lastOutput);
+            myOpMode.telemetry.addData("Yaw Error", yawController.lastError);
+            myOpMode.telemetry.addData("Yaw Output", yawController.lastOutput);
+            myOpMode.telemetry.update();
+        }
+        stopRobot();
+    }
+
 
     //  ########################  Low level control functions.  ###############################
 
