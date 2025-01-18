@@ -48,7 +48,7 @@ public class twothreePointClips extends LinearOpMode
         robot.drive(15, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.strafe(-45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.drive(-14.4, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(-14.3, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.claw.setPosition(CLAW_CLOSED_POSITION);
         sleep(1400);
 

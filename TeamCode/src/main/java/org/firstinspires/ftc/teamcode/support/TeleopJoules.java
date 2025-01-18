@@ -83,7 +83,7 @@ public class TeleopJoules extends LinearOpMode
     {
         if (Math.abs(gamepad2.right_stick_y) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
-            int targPos =  robot.linearSlide.getCurrentPosition() + (int) (-80 * gamepad2.right_stick_y);
+            int targPos =  robot.linearSlide.getCurrentPosition() + (int) (-120 * gamepad2.right_stick_y);
 
             if (targPos < ServoMotorPosConstants.LINEAR_SLIDE_STARTING_POSITION)
             {
@@ -100,7 +100,7 @@ public class TeleopJoules extends LinearOpMode
         }
         else
         {
-            robot.linearSlide.setPower(0.0);
+            robot.linearSlide.setPower(0);
         }
     }
     
@@ -245,7 +245,7 @@ public class TeleopJoules extends LinearOpMode
             robot.claw.setPosition(ServoMotorPosConstants.CLAW_OPEN_POSITION);
         }
     }
-    /*
+/*
     public void hangBar()
     {
         if (gamepad1.dpad_right)
@@ -257,21 +257,16 @@ public class TeleopJoules extends LinearOpMode
             robot.liftWrist.setPosition(ServoMotorPosConstants.LIFT_WRIST_DOWN_POSITION);
         }
 
+
+
         if (gamepad1.dpad_down)
         {
-            robot.lift.setTargetPosition(0);
-            robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.lift.setPower(1);
+            robot.winch.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.winch.setPower(1);
         }
-        else
-        {
-            robot.lift.setPower(0);
 
-        }
     }
-
 */
-
     private void updateTelemetryData() {
         telemetry.addData("Subsystem Data ", "-----")
                 .addData("Slide Position: ", robot.linearSlide.getCurrentPosition())
