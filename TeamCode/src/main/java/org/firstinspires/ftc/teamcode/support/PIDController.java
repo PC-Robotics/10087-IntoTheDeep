@@ -17,12 +17,11 @@ public class PIDController {
     double liveOutputLimit;
     double setPoint;
     double tolerance;
-    double deadband;
     boolean circular;
     boolean inPosition;
     ElapsedTime cycleTime = new ElapsedTime();
 
-    public PIDController(double Kp, double Ki, double Kd, double accelLimit, double outputLimit, double tolerance, double deadband, boolean circular)
+    public PIDController(double Kp, double Ki, double Kd, double accelLimit, double outputLimit, double tolerance, boolean circular)
     {
         this.Kp = Kp;
         this.Ki = Ki;
@@ -31,7 +30,6 @@ public class PIDController {
         this.defaultOutputLimit = outputLimit;
         this.liveOutputLimit = outputLimit;
         this.tolerance = tolerance;
-        this.deadband = deadband;
         this.circular = circular;
         reset(0.0);
     }
@@ -51,30 +49,21 @@ public class PIDController {
 
         inPosition = (Math.abs(error) < tolerance);
 
+        // Only begin using integral component when the robot gets close
+        // This helps dampen overshooting
+        if(Math.abs(error) < 1) integralSum += error * cycleTime.seconds();
+        double derivative = (error - lastError)/cycleTime.seconds();
+        lastError = error;
 
-        if(Math.abs(error) <= deadband)
-        {
-            output = 0;
-        }
+        output = (error*Kp) + (derivative*Kd) + (integralSum*Ki);
+        output = Range.clip(output, -liveOutputLimit,liveOutputLimit);
 
-        else
-        {
-            // Only begin using integral component when the robot gets close
-            // This helps dampen overshooting
-            if(Math.abs(error) < 0.5) integralSum += error * cycleTime.seconds();
-            double derivative = (error - lastError)/cycleTime.seconds();
-            lastError = error;
+        if((output-lastOutput) > dV) output = lastOutput + dV;
+        else if((output-lastOutput) < dV) output = lastOutput - dV;
 
-            output = (error*Kp) + (derivative*Kd) + (integralSum*Ki);
-            output = Range.clip(output, -liveOutputLimit,liveOutputLimit);
-
-            if((output-lastOutput) > dV) output = lastOutput + dV;
-            else if((output-lastOutput) < dV) output = lastOutput - dV;
-
-        }
         lastOutput = output;
         cycleTime.reset();
-        return output;
+        return inPosition ? 0.0 : output;
 
     }
 

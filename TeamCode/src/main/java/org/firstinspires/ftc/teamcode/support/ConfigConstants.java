@@ -10,12 +10,12 @@ public class ConfigConstants
 {
     // PID Control constants
     public static double DRIVE_KP = 0.14;
-    public static double DRIVE_KI = 0.4; //0.6 might be good
+    public static double DRIVE_KI = 0.6; //0.6 might be good
     public static double DRIVE_KD = 0.04; //0.03 is corr
 
 
     public static double STRAFE_KP = 0.2;
-    public static double STRAFE_KI = 0.33;
+    public static double STRAFE_KI = 0.5;
     public static double STRAFE_KD = 0.08;
 
 

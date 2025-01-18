@@ -1,22 +1,31 @@
 package org.firstinspires.ftc.teamcode.support;
 
 
-
-import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.*;
+import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.AUTON_PID_HOLD_TIME;
+import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.BUCKET_PICKUP_POSITION;
+import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.CLAW_CLOSED_POSITION;
+import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.CLAW_OPEN_POSITION;
+import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.LINEAR_SLIDE_POWER;
+import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.LINEAR_SLIDE_SPECIMEN_LOWER_POSITION;
+import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.LINEAR_SLIDE_SPECIMEN_UPPER_POSITION;
+import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.MAX_DRIVING_POWER;
+import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.WRIST_DRIVING_POSITION;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-@Disabled
-@Autonomous(name="FiveClipAutoJoules", group="Robot")
-public class FiveClipAutoJoules extends LinearOpMode
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+@Autonomous(name="threethreePointClips", group="Robot")
+public class threethreePointClips extends LinearOpMode
 {
     JoulesRobot robot = new JoulesRobot(this, 0, false);
 
     public void runOpMode()
     {
+        ElapsedTime timer = new ElapsedTime();
         robot.init();
+        robot.imu.resetYaw();
         robot.claw.setPosition(CLAW_OPEN_POSITION);
         sleep(1000);
         robot.claw.setPosition(CLAW_CLOSED_POSITION);
@@ -28,43 +37,67 @@ public class FiveClipAutoJoules extends LinearOpMode
         robot.claw.setPosition(CLAW_CLOSED_POSITION);
 
         //Linear Slide position to above bar
-        linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
+        robot.linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
 
         //Goes to the specimen hanging bar
-        robot.drive(-29, MAX_DRIVING_POWER - 0.2, AUTON_PID_HOLD_TIME);
+        sleep(150);
+        robot.drive(-31, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.35);
         robot.linearSlide.setPower(0);
 
-        //Putting the specimen on the bar
-        linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
-        sleep(1000);
+        robot.linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
+        robot.myOpMode.sleep(400);
         robot.linearSlide.setPower(0);
         robot.claw.setPosition(CLAW_OPEN_POSITION);
-        sleep(2000);
-        linearSlideMove(LINEAR_SLIDE_STARTING_POSITION);
+        robot.myOpMode.sleep(1300);
+        robot.linearSlideMove(0);
+
+        //going to wall to grab spec #2
+        robot.drive(15, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.strafe(45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(-19, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.5);
+        robot.claw.setPosition(CLAW_CLOSED_POSITION);
+        sleep(1200);
+
+        //go back to bar to put spec #2 on
+        robot.linearSlideMove(50);
+        robot.drive(10.25, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.linearSlideMove(0);
+        robot.strafe(50, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.turnTo(0, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+
+        robot.linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION + 250);
         sleep(1000);
+        robot.drive(-22, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.3);
 
-        //get to about to push the blocks into the human player zone
-        robot.drive(6, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
+        robot.myOpMode.sleep(500);
         robot.linearSlide.setPower(0);
-        robot.strafe(-33, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.drive(-30, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.strafe(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.claw.setPosition(CLAW_OPEN_POSITION);
+        robot.myOpMode.sleep(1300);
+        robot.linearSlideMove(0);
+
+        robot.drive(23, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.strafe(60, 1, AUTON_PID_HOLD_TIME);
 
 
-
-        //push the blocks into the human player zone
-        //
-        /*
-        for (int i = 0; i < 3; i++)
-        {
-            if (i != 0)
-                robot.strafe(-10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-            robot.drive(45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-            robot.drive(-45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        }
-
-         */
 /*
+        linearSlideMove(50);
+        robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        linearSlideMove(0);
+        robot.strafe(-35, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.turnTo(0, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
+        sleep(180);
+        robot.drive(-15, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
+        robot.claw.setPosition(CLAW_OPEN_POSITION);
+        sleep(2000);
+
+
+
+/*
+
 
         //able to close claw and grab first of four specimens
         robot.drive(10, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
@@ -108,13 +141,6 @@ public class FiveClipAutoJoules extends LinearOpMode
         }
 
 */
-    }
-
-    private void linearSlideMove(int targPos)
-    {
-        robot.linearSlide.setTargetPosition(targPos);
-        robot.linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.linearSlide.setPower(LINEAR_SLIDE_POWER);
     }
 
     private double radians(double degrees)

@@ -18,6 +18,7 @@ public class twothreePointClips extends LinearOpMode
     {
         ElapsedTime timer = new ElapsedTime();
         robot.init();
+        robot.imu.resetYaw();
         robot.claw.setPosition(CLAW_OPEN_POSITION);
         sleep(1000);
         robot.claw.setPosition(CLAW_CLOSED_POSITION);
@@ -33,22 +34,16 @@ public class twothreePointClips extends LinearOpMode
 
         //Goes to the specimen hanging bar
         sleep(150);
-        robot.drive(-29, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(-31, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.5);
         robot.linearSlide.setPower(0);
 
-        //Putting the specimen on the bar
-        linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
-        sleep(1000);
-        robot.linearSlide.setPower(0);
-        robot.claw.setPosition(CLAW_OPEN_POSITION);
-        sleep(1400);
-        linearSlideMove(0);
+        robot.clipSpecimenAction();
 
         //going to wall to grab spec #2
         robot.drive(15, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.strafe(-45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.strafe(45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.drive(-14.3, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(-19, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.5);
         robot.claw.setPosition(CLAW_CLOSED_POSITION);
         sleep(1400);
 
@@ -56,19 +51,17 @@ public class twothreePointClips extends LinearOpMode
         linearSlideMove(50);
         robot.drive(10.25, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         linearSlideMove(0);
-        robot.strafe(-50, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.strafe(50, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
         robot.turnTo(0, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+
         linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION + 250);
         sleep(1000);
-        robot.drive(-20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
-        robot.claw.setPosition(CLAW_OPEN_POSITION);
-        sleep(1400);
+        robot.drive(-22, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 2.0);
 
-        //return to parking zone
-        linearSlideMove(0);
+        robot.clipSpecimenAction();
+
         robot.drive(23, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.strafe(-60, 1, AUTON_PID_HOLD_TIME);
+        robot.strafe(60, 1, AUTON_PID_HOLD_TIME);
 
 
 /*
