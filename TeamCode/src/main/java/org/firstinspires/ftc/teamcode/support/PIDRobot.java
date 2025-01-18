@@ -110,8 +110,8 @@ public class PIDRobot
         imu = myOpMode.hardwareMap.get(IMU.class,"imu");
 
         // Initialize the odometry wheels
-        driveEncoder = myOpMode.hardwareMap.get(DcMotor.class,"drive");
-        strafeEncoder = myOpMode.hardwareMap.get(DcMotor.class,"strafe");
+       // driveEncoder = myOpMode.hardwareMap.get(DcMotor.class,"drive");
+       // strafeEncoder = myOpMode.hardwareMap.get(DcMotor.class,"strafe");
 
         /*
          * Copied from another source (Simpflied Odometry by gearsincorg)
@@ -166,6 +166,7 @@ public class PIDRobot
      * always return true so this can be used in "while" loop conditions
      * @return true
      */
+    /*
     public boolean readSensors()
     {
         rawDriveOdometer = driveEncoder.getCurrentPosition() * (INVERT_DRIVE_ODOMETRY ? -1 : 1);
@@ -288,7 +289,7 @@ public class PIDRobot
 
         myOpMode.telemetry.update();
     }
-
+*/
 
     //  ########################  Low level control functions.  ###############################
 
