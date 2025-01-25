@@ -34,7 +34,7 @@ public class twothreePointClips extends LinearOpMode
 
         //Goes to the specimen hanging bar
         sleep(150);
-        robot.drive(-31, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.5);
+        robot.drive(-31.3, .7, AUTON_PID_HOLD_TIME, 1.5);
         robot.linearSlide.setPower(0);
 
         robot.clipSpecimenAction();
@@ -42,8 +42,8 @@ public class twothreePointClips extends LinearOpMode
         //going to wall to grab spec #2
         robot.drive(15, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.0);
         robot.strafe(45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 2.5);
-        robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.0);
-        robot.drive(-19, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.5);
+        robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 2.0);
+        robot.drive(-19, .7, AUTON_PID_HOLD_TIME, 1.5);
         robot.claw.setPosition(CLAW_CLOSED_POSITION);
         sleep(1400);
 
@@ -54,14 +54,17 @@ public class twothreePointClips extends LinearOpMode
         robot.strafe(50, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 3.0);
         robot.turnTo(0, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.5);
 
-        linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION + 250);
+        linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
         sleep(1000);
-        robot.drive(-22, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 2.0);
+        robot.drive(-23.4, .7, AUTON_PID_HOLD_TIME, 2.0);
 
         robot.clipSpecimenAction();
 
         robot.drive(23, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 2.0);
-        robot.strafe(60, 1, AUTON_PID_HOLD_TIME, 2.5);
+        robot.strafe(60, 1, AUTON_PID_HOLD_TIME, 2.0);
+        sleep(1000);
+        robot.wrist.setPosition(WRIST_INTAKE_POSITION);
+        robot.bucket.setPosition(BUCKET_RELEASE_POSITION);
 
 
 /*

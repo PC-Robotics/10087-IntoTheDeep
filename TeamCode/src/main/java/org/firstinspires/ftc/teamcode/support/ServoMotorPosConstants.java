@@ -12,7 +12,7 @@ public class ServoMotorPosConstants
     public static final int LINEAR_SLIDE_STARTING_POSITION = 10;
     public static final int LINEAR_SLIDE_FIRST_BUCKET_POSITION = 2700;
     public static final int LINEAR_SLIDE_HIGHEST_POSITION = 4350;
-    public static final int LINEAR_SLIDE_SPECIMEN_UPPER_POSITION = 1550;
+    public static final int LINEAR_SLIDE_SPECIMEN_UPPER_POSITION = 1700;
     public static final int LINEAR_SLIDE_SPECIMEN_LOWER_POSITION = 1250;
     public static final int LINEAR_SLIDE_SPECIMEN_WALL_POSITION = 10;
     public static final int LINEAR_SLIDE_TOUCHING_POSITION = 2400;
