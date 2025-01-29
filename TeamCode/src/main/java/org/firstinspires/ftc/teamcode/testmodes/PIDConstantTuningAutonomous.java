@@ -30,6 +30,7 @@ public class PIDConstantTuningAutonomous extends LinearOpMode {
     {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         robot.init(true);
+        robot.imu.resetYaw();
         telemetry.addData(">","Touch Play to run Auto");
         telemetry.update();
 
@@ -43,9 +44,7 @@ public class PIDConstantTuningAutonomous extends LinearOpMode {
         if(opModeIsActive())
         {
 
-            robot.drive(FLOOR_TILE_INCHES*2,STRAFE_MAX_AUTO,ServoMotorPosConstants.AUTON_PID_HOLD_TIME);
-            sleep(3000);
-            robot.drive(FLOOR_TILE_INCHES*-2,STRAFE_MAX_AUTO,ServoMotorPosConstants.AUTON_PID_HOLD_TIME);
+            robot.moveToPointRelative(24, 24, DRIVE_MAX_AUTO, 1);
 
 
 

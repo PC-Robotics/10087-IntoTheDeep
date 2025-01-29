@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.support;
 
+import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.CLAW_OPEN_POSITION;
+import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.LINEAR_SLIDE_POWER;
+import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.LINEAR_SLIDE_SPECIMEN_LOWER_POSITION;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -18,9 +22,9 @@ public class JoulesRobot extends PIDRobot
     public Servo bucket = null;
     private int gamePhase = 0;
 
-    public JoulesRobot(LinearOpMode opMode, int gamePhase)
+    public JoulesRobot(LinearOpMode opMode, int gamePhase, boolean isFieldCentric)
     {
-        super(opMode, false);
+        super(opMode, isFieldCentric);
         this.gamePhase = gamePhase;
     }
 
@@ -68,4 +72,19 @@ public class JoulesRobot extends PIDRobot
         return super.readSensors();
     }
 
+    public void linearSlideMove(int targPos)
+    {
+        linearSlide.setTargetPosition(targPos);
+        linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        linearSlide.setPower(LINEAR_SLIDE_POWER);
+    }
+
+    public void clipSpecimenAction() {
+        linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
+        myOpMode.sleep(1000);
+        linearSlide.setPower(0);
+        claw.setPosition(CLAW_OPEN_POSITION);
+        myOpMode.sleep(1400);
+        linearSlideMove(0);
+    }
 }

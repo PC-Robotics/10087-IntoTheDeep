@@ -7,15 +7,18 @@ import static org.firstinspires.ftc.teamcode.support.ServoMotorPosConstants.*;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="twothreePointClips", group="Robot")
 public class twothreePointClips extends LinearOpMode
 {
-    JoulesRobot robot = new JoulesRobot(this, 0);
+    JoulesRobot robot = new JoulesRobot(this, 0, false);
 
     public void runOpMode()
     {
+        ElapsedTime timer = new ElapsedTime();
         robot.init();
+        robot.imu.resetYaw();
         robot.claw.setPosition(CLAW_OPEN_POSITION);
         sleep(1000);
         robot.claw.setPosition(CLAW_CLOSED_POSITION);
@@ -31,42 +34,37 @@ public class twothreePointClips extends LinearOpMode
 
         //Goes to the specimen hanging bar
         sleep(150);
-        robot.drive(-29, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(-31.3, .7, AUTON_PID_HOLD_TIME, 1.5);
         robot.linearSlide.setPower(0);
 
-        //Putting the specimen on the bar
-        linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
-        sleep(1000);
-        robot.linearSlide.setPower(0);
-        robot.claw.setPosition(CLAW_OPEN_POSITION);
-        sleep(1400);
-        linearSlideMove(0);
+        robot.clipSpecimenAction();
 
         //going to wall to grab spec #2
-        robot.drive(15, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.strafe(-45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.drive(-14.4, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(15, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.0);
+        robot.strafe(45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 2.5);
+        robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 2.0);
+        robot.drive(-19, .7, AUTON_PID_HOLD_TIME, 1.5);
         robot.claw.setPosition(CLAW_CLOSED_POSITION);
         sleep(1400);
 
         //go back to bar to put spec #2 on
         linearSlideMove(50);
-        robot.drive(10.25, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
+        robot.drive(10.25, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.0);
         linearSlideMove(0);
-        robot.strafe(-50, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.turnTo(0, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION + 250);
-        sleep(1000);
-        robot.drive(-20, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        linearSlideMove(LINEAR_SLIDE_SPECIMEN_LOWER_POSITION);
-        robot.claw.setPosition(CLAW_OPEN_POSITION);
-        sleep(1400);
+        robot.strafe(50, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 3.0);
+        robot.turnTo(0, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.5);
 
-        //return to parking zone
-        linearSlideMove(0);
-        robot.drive(23, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME);
-        robot.strafe(-60, 1, AUTON_PID_HOLD_TIME);
+        linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
+        sleep(1000);
+        robot.drive(-23.4, .7, AUTON_PID_HOLD_TIME, 2.0);
+
+        robot.clipSpecimenAction();
+
+        robot.drive(23, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 2.0);
+        robot.strafe(60, 1, AUTON_PID_HOLD_TIME, 2.0);
+        sleep(1000);
+        robot.wrist.setPosition(WRIST_INTAKE_POSITION);
+        robot.bucket.setPosition(BUCKET_RELEASE_POSITION);
 
 
 /*
