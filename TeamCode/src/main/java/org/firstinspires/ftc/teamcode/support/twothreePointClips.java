@@ -19,15 +19,13 @@ public class twothreePointClips extends LinearOpMode
         ElapsedTime timer = new ElapsedTime();
         robot.init();
         robot.imu.resetYaw();
-        robot.claw.setPosition(CLAW_OPEN_POSITION);
-        sleep(1000);
-        robot.claw.setPosition(CLAW_CLOSED_POSITION);
-        robot.wrist.setPosition(WRIST_DRIVING_POSITION);
-        robot.bucket.setPosition(BUCKET_PICKUP_POSITION);
         updateTelemetryData();
         waitForStart();
 
+        robot.bucket.setPosition(BUCKET_PICKUP_POSITION);
         robot.claw.setPosition(CLAW_CLOSED_POSITION);
+        robot.wrist.setPosition(WRIST_DRIVING_POSITION);
+        robot.bucket.setPosition(BUCKET_PICKUP_POSITION);
 
         //Linear Slide position to above bar
         linearSlideMove(LINEAR_SLIDE_SPECIMEN_UPPER_POSITION);
@@ -43,7 +41,7 @@ public class twothreePointClips extends LinearOpMode
         robot.drive(15, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 1.0);
         robot.strafe(45, MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 2.5);
         robot.turnTo(radians(180), MAX_DRIVING_POWER, AUTON_PID_HOLD_TIME, 2.0);
-        robot.drive(-19, .7, AUTON_PID_HOLD_TIME, 1.5);
+        robot.drive(-20, .7, AUTON_PID_HOLD_TIME, 1.5);
         robot.claw.setPosition(CLAW_CLOSED_POSITION);
         sleep(1400);
 

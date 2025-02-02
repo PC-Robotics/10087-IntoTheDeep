@@ -8,11 +8,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name="TeleopJoules", group="Robot")
 public class TeleopJoules extends LinearOpMode
 {
+    double leftTrolleyStart, rightTrolleyStart;
     JoulesRobot robot = new JoulesRobot(this, 1, true);
     boolean firstTime = true;
     public void runOpMode() {
         robot.init();
         updateTelemetryData();
+
         waitForStart();
 
         //goDefaultPositions();
@@ -52,6 +54,9 @@ public class TeleopJoules extends LinearOpMode
         robot.right.setPosition(ServoMotorPosConstants.ARM_IN_POSITION);
         robot.left.setPosition(ServoMotorPosConstants.ARM_IN_POSITION);
         robot.claw.setPosition(ServoMotorPosConstants.CLAW_OPEN_POSITION);
+
+        leftTrolleyStart = robot.left.getPosition();
+        rightTrolleyStart = robot.right.getPosition();
     }
 
 
@@ -83,7 +88,11 @@ public class TeleopJoules extends LinearOpMode
     {
         if (Math.abs(gamepad2.right_stick_y) > ServoMotorPosConstants.DEADZONE_THRESHOLD)
         {
-            int targPos =  robot.linearSlide.getCurrentPosition() + (int) (-120 * gamepad2.right_stick_y);
+            int targPos =  robot.linearSlide.getCurrentPosition() + (int) (-125 * (gamepad2.right_stick_button ? 2.4 : 1) * gamepad2.right_stick_y);
+
+            if (targPos < 600 && targPos > 450 && robot.wrist.getPosition() < (ServoMotorPosConstants.WRIST_DRIVING_POSITION + ServoMotorPosConstants.WRIST_RELEASE_POSITION) / 2) {
+                robot.wrist.setPosition(ServoMotorPosConstants.WRIST_DRIVING_POSITION);
+            }
 
             if (targPos < ServoMotorPosConstants.LINEAR_SLIDE_STARTING_POSITION)
             {
@@ -221,17 +230,21 @@ public class TeleopJoules extends LinearOpMode
             pad1LeftTrigger = 0;
         }
 
-        double newArmPosition = (robot.right.getPosition() + robot.left.getPosition()) / 2;
+        double trolleyRightPosition = robot.right.getPosition();
+        double trolleyLeftPosition = robot.left.getPosition();
 
         if (pad1RightTrigger != 0) {
-            newArmPosition -= (pad1RightTrigger / 300);
+            trolleyRightPosition -= (pad1RightTrigger / 150);
+            trolleyLeftPosition -= (pad1RightTrigger / 150);
         } else if (pad1LeftTrigger != 0) {
-            newArmPosition += (pad1LeftTrigger / 300);
+            trolleyRightPosition += (pad1LeftTrigger / 150);
+            trolleyLeftPosition += (pad1LeftTrigger / 150);
         }
         // Makes sure the arm can't go out of the min or max
-        newArmPosition = clamp(newArmPosition, ServoMotorPosConstants.ARM_OUT_POSITION, ServoMotorPosConstants.ARM_IN_POSITION);
-        robot.right.setPosition(newArmPosition);
-        robot.left.setPosition(newArmPosition);
+        trolleyRightPosition = clamp(trolleyRightPosition, rightTrolleyStart - .37, rightTrolleyStart);
+        trolleyLeftPosition = clamp(trolleyLeftPosition, leftTrolleyStart - .37, leftTrolleyStart);
+        robot.right.setPosition(trolleyRightPosition);
+        robot.left.setPosition(trolleyLeftPosition);
     }
 
     public void claw()
